@@ -9,29 +9,21 @@ public class Player {
 		this.currentLocation = currentLocation;
 		System.out.println("Welcome, " + name);
 		System.out.println(currentLocation.getDescription());
-
 	}
-
-	
 
 	public Location getCurrentLocation() {
 		return currentLocation;
 	}
 
-
-	public boolean move(Direction direction){
+	public boolean move(Direction direction) {
 		Location nextLocation = this.currentLocation.getNextLocation(direction);
-		if (nextLocation != null){
+		if (nextLocation != null) {
 			this.currentLocation = nextLocation;
 			return true;
 		} else {
 			return false;
 		}
-		
+
 	}
 
-	
-
 }
-	
- 
