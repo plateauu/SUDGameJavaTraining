@@ -1,8 +1,8 @@
 package SUD_GAME;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.Scanner;
 
+import SUD_GAME.domain.BattleThread;
 import SUD_GAME.domain.Direction;
 import SUD_GAME.domain.Location;
 import SUD_GAME.domain.Npc;
@@ -14,6 +14,9 @@ import SUD_GAME.domain.Player;
  */
 
 public class App {
+
+	private static Thread battleThread = null;
+	private static BattleThread battle = null;
 
 	public static void main(String[] args) {
 
@@ -42,19 +45,29 @@ public class App {
 		String scanName = scan.nextLine();
 		Player firstPlayer = new Player(scanName, shire);
 
+		actionCommander(firstPlayer, scan);
+
+	}
+
+	private static void actionCommander(Player player, Scanner scan) {
+
 		String command = "";
 		while (!command.equals("Exit")) {
 			command = readPlayerInput(scan);
 			String commands[] = command.split(" ");
-			actOnCommand(commands, firstPlayer);
-
+			try {
+				actOnCommand(commands, player);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-
 		System.out.println("Good bye!");
-
 	}
 
-	private static void actOnCommand(String[] commands, Player player) {
+	private static void actOnCommand(String[] commands, Player player)
+			throws InterruptedException {
+
 		switch (commands[0]) {
 		case "n":
 		case "north":
@@ -77,7 +90,16 @@ public class App {
 			if (commands.length > 1) {
 				attack(commands[1], player);
 			} else {
-				System.out.println("usage > a <monster name> or attack <monster name>." + "\n" + "Remember about size of the letter");
+				System.out
+						.println("usage > a <monster name> or attack <monster name>."
+								+ "\n" + "Remember about size of the letter");
+			}
+			break;
+		case "r":
+			if (battleThread != null) {
+
+				battle.setDeactive();
+				System.out.println("You run out the battle");
 			}
 			break;
 		default:
@@ -85,13 +107,20 @@ public class App {
 		}
 	}
 
-	private static void attack(String attackedName, Player player) {
-		boolean isPresent = player.getCurrentLocation().monsterExists(attackedName);
+	private static void attack(String name, Player player) {
+		boolean isPresent = player.getCurrentLocation().monsterExists(name);
+		Npc monster = player.getCurrentLocation().getMonster(name);
 		if (isPresent) {
-			player.fightWithMonster(attackedName);
+
+			battle = new BattleThread(monster, player);
+			battleThread = new Thread(battle);
+			battleThread.setName("Fight");
+			battleThread.start();
+
 		} else {
-			System.out.println("There is no monster called  " + attackedName
+			System.out.println("There is no monster called  " + name
 					+ " to attack");
+
 		}
 
 	}
@@ -110,4 +139,5 @@ public class App {
 		String command = scan.nextLine();
 		return command;
 	}
+
 }
