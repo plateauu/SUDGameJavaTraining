@@ -90,8 +90,7 @@ public class App {
 			if (commands.length > 1) {
 				attack(commands[1], player);
 			} else {
-				System.out
-						.println("usage > a <monster name> or attack <monster name>."
+				System.out.println("usage > a <monster name> or attack <monster name>."
 								+ "\n" + "Remember about size of the letter");
 			}
 			break;
