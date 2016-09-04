@@ -90,8 +90,12 @@ public class App {
 			if (commands.length > 1) {
 				attack(commands[1], player);
 			} else {
+<<<<<<< HEAD
 				System.out
 						.println("usage > a <monster name> or attack <monster name>."
+=======
+				System.out.println("usage > a <monster name> or attack <monster name>."
+>>>>>>> develop
 								+ "\n" + "Remember about size of the letter");
 			}
 			break;
