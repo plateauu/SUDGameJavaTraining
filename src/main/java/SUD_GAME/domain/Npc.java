@@ -1,14 +1,30 @@
 package SUD_GAME.domain;
 
 public class Npc {
-	String name;
+	private String npcName;
+	private int npcHealth;
+	private int npcStrenght;
 	
-	public Npc(String name){
-		this.name = name;
+	public Npc(String name, int npcHealth, int npcStrenght){
+		this.npcName = name;
+		this.npcHealth = npcHealth;
+		this.npcStrenght = npcStrenght;
 	}
 
 	public String getName() {
-		return name;
+		return npcName;
+	}
+	
+	public int getNpcHealth() {
+		return npcHealth;
+	}
+	
+	public void setNpcHealth(int npcHealth){
+		this.npcHealth = npcHealth;
+	}
+
+	public int getNpcStrenght(){
+		return npcStrenght;
 	}
 	
 }

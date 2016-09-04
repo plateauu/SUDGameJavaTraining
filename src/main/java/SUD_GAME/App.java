@@ -1,5 +1,6 @@
 package SUD_GAME;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.Scanner;
 
 import SUD_GAME.domain.Direction;
@@ -23,18 +24,18 @@ public class App {
 				"It is a land where dark lord rule since ever"
 						+ "\n"
 						+ "and dark of the darkness deamons and orks live there");
-		Location graceland = new Location("Graceland", "Mysterious count. No one has more information about it");
-		
+		Location graceland = new Location("Graceland",
+				"Mysterious count. No one has more information about it");
+
 		shire.addLocation(Direction.N, mordor);
 		shire.addLocation(Direction.S, graceland);
 		mordor.addLocation(Direction.S, shire);
 		graceland.addLocation(Direction.N, shire);
-		
-		Npc orkZygmund = new Npc("Zygmnd");
-		Npc ogrAlfred = new Npc("Alfred");
+
+		Npc orkZygmund = new Npc("Zygmund", 3, 2);
+		Npc ogrAlfred = new Npc("Alfred", 20, 5);
 		mordor.addMonster(orkZygmund);
 		mordor.addMonster(ogrAlfred);
-		
 
 		System.out.println("What's your name?");
 		Scanner scan = new Scanner(System.in);
@@ -44,15 +45,17 @@ public class App {
 		String command = "";
 		while (!command.equals("Exit")) {
 			command = readPlayerInput(scan);
-			actOnCommand(command, firstPlayer);
+			String commands[] = command.split(" ");
+			actOnCommand(commands, firstPlayer);
+
 		}
 
 		System.out.println("Good bye!");
 
 	}
 
-	private static void actOnCommand(String command, Player player) {
-		switch (command) {
+	private static void actOnCommand(String[] commands, Player player) {
+		switch (commands[0]) {
 		case "n":
 		case "north":
 			move(Direction.N, player);
@@ -69,9 +72,28 @@ public class App {
 		case "west":
 			move(Direction.W, player);
 			break;
+		case "a":
+		case "attack":
+			if (commands.length > 1) {
+				attack(commands[1], player);
+			} else {
+				System.out.println("usage > a <monster name> or attack <monster name>." + "\n" + "Remember about size of the letter");
+			}
+			break;
 		default:
 			System.out.println("Unknown command");
 		}
+	}
+
+	private static void attack(String attackedName, Player player) {
+		boolean isPresent = player.getCurrentLocation().monsterExists(attackedName);
+		if (isPresent) {
+			player.fightWithMonster(attackedName);
+		} else {
+			System.out.println("There is no monster called  " + attackedName
+					+ " to attack");
+		}
+
 	}
 
 	private static void move(Direction direction, Player player) {

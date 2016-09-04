@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.print.attribute.standard.MediaSize.NA;
+
 public class Location {
 	private String shortDescription;
 	private String longDescription;
@@ -44,30 +46,69 @@ public class Location {
 	}
 
 	private String getMonsterString() {
-	
-		if (monsters.size() == 0){
+
+		if (monsters.size() == 0) {
 			return "None";
 		} else {
-			
-		
-		StringBuilder monsterString = new StringBuilder();
 
-		for (Npc monster : monsters) {
-			monsterString.append(monster.getName());
-			monsterString.append(", ");
-		}
-		return monsterString.toString();
+			StringBuilder monsterString = new StringBuilder();
+
+			for (Npc monster : monsters) {
+				monsterString.append(monster.getName());
+				monsterString.append(", ");
+			}
+			return monsterString.toString();
 		}
 	}
+
+	
+	// nie wiem czy tutaj za bardzo nie kombinuję, ale chciałem żeby każda funkcja była jak najmniejsza *(wykonywała jedno zadanie), 
+	//a przy okazji mogła byc wykorzystywana wielokrotnie
+	
+	public boolean monsterExists(String name) {
+		boolean isPresent = false;
+
+		for (Npc monster : monsters) {
+			if (monster.getName().equals(name)) {
+				isPresent = true;
+				break;
+			}
+		}
+		return isPresent;
+	}
+
+	public int getMonsterIndex(String name) {
+
+		int indexOfMonster = -1;
+
+		for (Npc monster : monsters) {
+			if (monster.getName().equals(name)) {
+				indexOfMonster = monsters.indexOf(monster);
+			}
+		}
+		return indexOfMonster;
+	}
+	
+	public Npc getMonster(String name){
+		int indexOfMonster;
+		indexOfMonster = getMonsterIndex(name);
+		return monsters.get(indexOfMonster);
+	}
+	
+	// koniec wahania
 
 	public void addLocation(Direction exit, Location loc) {
 		this.exits.put(exit, loc);
 	}
-	
-	public void addMonster(Npc monster){
+
+	public void addMonster(Npc monster) {
 		this.monsters.add(monster);
 	}
 
+	public void removeMonster(Npc monster) {
+		this.monsters.remove(monster);
+	}
+	
 	public Location getNextLocation(Direction direction) {
 		boolean exists = this.exits.containsKey(direction);
 		if (exists) {
@@ -77,5 +118,6 @@ public class Location {
 		}
 
 	}
+
 
 }
