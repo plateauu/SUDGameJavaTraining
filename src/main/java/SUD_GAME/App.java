@@ -58,7 +58,6 @@ public class App {
 			try {
 				actOnCommand(commands, player);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
