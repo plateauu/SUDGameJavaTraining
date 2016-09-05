@@ -23,7 +23,6 @@ public class BattleThread implements Runnable {
 
 	public void fightWithMonster(Npc monster, Player player) {
 
-
 		if (playerHits) {
 			int random = (int) (Math.random() * 4 + 1);
 			int hitStrenght = random + player.getPlayerStrenght();
@@ -86,8 +85,8 @@ public class BattleThread implements Runnable {
 		return isAlive;
 
 	}
-	
-	public void setDeactive(){
+
+	public void setDeactive() {
 		this.isActive = false;
 	}
 

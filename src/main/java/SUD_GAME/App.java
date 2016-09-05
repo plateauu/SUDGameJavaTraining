@@ -89,18 +89,12 @@ public class App {
 			if (commands.length > 1) {
 				attack(commands[1], player);
 			} else {
-
-
-
-
 				System.out.println("usage > a <monster name> or attack <monster name>."
-
 								+ "\n" + "Remember about size of the letter");
 			}
 			break;
 		case "r":
 			if (battleThread != null) {
-
 				battle.setDeactive();
 				System.out.println("You run out the battle");
 			}
@@ -111,8 +105,8 @@ public class App {
 	}
 
 	private static void attack(String name, Player player) {
-		boolean isPresent = player.getCurrentLocation().monsterExists(name);
-		Npc monster = player.getCurrentLocation().getMonster(name);
+		boolean isPresent = player.ifMonsterNearby(name);
+		Npc monster = player.prepareMonster(name);
 		if (isPresent) {
 
 			battle = new BattleThread(monster, player);
@@ -131,7 +125,7 @@ public class App {
 	private static void move(Direction direction, Player player) {
 		boolean hasMoved = player.move(direction);
 		if (hasMoved) {
-			System.out.println(player.getCurrentLocation().getDescription());
+			System.out.println(player.getLocationDescription());
 		} else {
 			System.out.println("You can't go that way ");
 		}

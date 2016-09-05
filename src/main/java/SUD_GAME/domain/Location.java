@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.print.attribute.standard.MediaSize.NA;
-
 public class Location {
 	private String shortDescription;
 	private String longDescription;
@@ -37,7 +35,7 @@ public class Location {
 
 	private String getExitString() {
 		StringBuilder exitString = new StringBuilder();
-		;
+	
 		for (Direction direction : exits.keySet()) {
 			exitString.append(direction.getDirectionDescription());
 			exitString.append(", ");

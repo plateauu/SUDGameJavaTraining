@@ -18,6 +18,19 @@ public class Player {
 	public Location getCurrentLocation() {
 		return currentLocation;
 	}
+	
+	public String getLocationDescription(){
+		return currentLocation.getDescription();
+		
+	}
+	
+	public boolean ifMonsterNearby(String name){
+		return this.currentLocation.monsterExists(name);
+	}
+	
+	public Npc prepareMonster(String name){
+		return getCurrentLocation().getMonster(name);
+	}
 
 	public String getPlayerName() {
 		return playerName;
