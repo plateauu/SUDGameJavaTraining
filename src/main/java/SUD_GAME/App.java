@@ -10,7 +10,6 @@ import SUD_GAME.domain.Player;
 
 /**
  * SUD Game Tutorial
- * 
  */
 
 public class App {
@@ -80,7 +79,7 @@ public class App {
 		case "east":
 			move(Direction.E, player);
 			break;
-		case "w":
+		case "w":	
 		case "west":
 			move(Direction.W, player);
 			break;
