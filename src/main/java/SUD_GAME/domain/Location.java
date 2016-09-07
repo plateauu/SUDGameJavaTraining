@@ -44,13 +44,10 @@ public class Location {
 	}
 
 	private String getMonsterString() {
-
 		if (monsters.size() == 0) {
 			return "None";
 		} else {
-
 			StringBuilder monsterString = new StringBuilder();
-
 			for (Npc monster : monsters) {
 				monsterString.append(monster.getName());
 				monsterString.append(", ");
@@ -59,15 +56,11 @@ public class Location {
 		}
 	}
 
-	
-	// nie wiem czy tutaj za bardzo nie kombinuję, ale chciałem żeby każda funkcja była jak najmniejsza *(wykonywała jedno zadanie), 
-	//a przy okazji mogła byc wykorzystywana wielokrotnie
-	
-	public boolean monsterExists(String name) {
+	public boolean isMonsterExists(String name) {
 		boolean isPresent = false;
 
 		for (Npc monster : monsters) {
-			if (monster.getName().equals(name)) {
+			if (monster.getName().equalsIgnoreCase(name)) {
 				isPresent = true;
 				break;
 			}
@@ -80,7 +73,7 @@ public class Location {
 		int indexOfMonster = -1;
 
 		for (Npc monster : monsters) {
-			if (monster.getName().equals(name)) {
+			if (monster.getName().equalsIgnoreCase(name)) {
 				indexOfMonster = monsters.indexOf(monster);
 			}
 		}
@@ -88,13 +81,17 @@ public class Location {
 	}
 	
 	public Npc getMonster(String name){
+		
 		int indexOfMonster;
 		indexOfMonster = getMonsterIndex(name);
-		return monsters.get(indexOfMonster);
+		
+		if (indexOfMonster != -1){
+			return monsters.get(indexOfMonster);		
+		} else {
+			return null;
+		}
 	}
 	
-	// koniec wahania
-
 	public void addLocation(Direction exit, Location loc) {
 		this.exits.put(exit, loc);
 	}

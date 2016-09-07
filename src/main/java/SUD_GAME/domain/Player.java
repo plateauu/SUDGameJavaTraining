@@ -1,5 +1,7 @@
 package SUD_GAME.domain;
 
+import java.util.Random;
+
 public class Player {
 	private String playerName;
 	private Location currentLocation;
@@ -25,7 +27,7 @@ public class Player {
 	}
 	
 	public boolean ifMonsterNearby(String name){
-		return this.currentLocation.monsterExists(name);
+		return this.currentLocation.isMonsterExists(name);
 	}
 	
 	public Npc prepareMonster(String name){
@@ -56,6 +58,12 @@ public class Player {
 		} else {
 			return false;
 		}
+	}
+	
+
+	public int takeAShot() {
+		Random r = new Random();
+		return this.playerStrenght + r.nextInt(4);
 	}
 
 }

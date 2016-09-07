@@ -1,5 +1,7 @@
 package SUD_GAME.domain;
 
+import java.util.Random;
+
 public class Npc {
 	private String npcName;
 	private int npcHealth;
@@ -25,6 +27,12 @@ public class Npc {
 
 	public int getNpcStrenght(){
 		return npcStrenght;
+	}
+	
+	public int takeAShot(){
+		Random r = new Random();
+		return this.npcStrenght + r.nextInt(4);
+				
 	}
 	
 }
