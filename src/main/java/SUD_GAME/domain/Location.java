@@ -2,13 +2,14 @@ package SUD_GAME.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Location {
 	private String shortDescription;
 	private String longDescription;
 	private Map<Direction, Location> exits;
-	private ArrayList<Npc> monsters;
+	private List<Npc> monsters;
 
 	public Location(String shortDescription, String longDescription) {
 		this.shortDescription = shortDescription;
@@ -43,7 +44,7 @@ public class Location {
 		return exitString.toString();
 	}
 
-	private String getMonsterString() {
+	public String getMonsterString() {
 		if (monsters.size() == 0) {
 			return "None";
 		} else {
@@ -112,6 +113,14 @@ public class Location {
 			return null;
 		}
 
+	}
+	
+	public List<Npc> getMonsterList(){
+		return this.monsters;
+	}
+	
+	public Map<Direction, Location> getExtisLists(){
+		return this.exits;
 	}
 
 

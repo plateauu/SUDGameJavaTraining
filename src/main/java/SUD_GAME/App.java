@@ -121,6 +121,7 @@ public class App {
 			stopBattle();
 			break;
 		case "exit":
+			stopBattle();
 			break;
 		default:
 			showHelp();
