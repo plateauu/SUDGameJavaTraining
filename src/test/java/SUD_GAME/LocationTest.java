@@ -15,9 +15,9 @@ import static org.hamcrest.CoreMatchers.*;
 import org.hamcrest.collection.IsMapContaining;
 import org.junit.Test;
 
-import SUD_GAME.domain.Direction;
-import SUD_GAME.domain.Location;
-import SUD_GAME.domain.Npc;
+import com.plateauu.sudgame.domain.Direction;
+import com.plateauu.sudgame.domain.Location;
+import com.plateauu.sudgame.domain.Npc;
 
 public class LocationTest {
 

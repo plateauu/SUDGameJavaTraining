@@ -1,7 +1,7 @@
-package SUD_GAME;
+package com.plateauu.sudgame;
 
-import SUD_GAME.domain.Npc;
-import SUD_GAME.domain.Player;
+import com.plateauu.sudgame.domain.Npc;
+import com.plateauu.sudgame.domain.Player;
 
 public class BattleThread implements Runnable {
 	private Npc monster;

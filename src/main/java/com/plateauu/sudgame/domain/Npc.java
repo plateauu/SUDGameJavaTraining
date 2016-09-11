@@ -1,4 +1,4 @@
-package SUD_GAME.domain;
+package com.plateauu.sudgame.domain;
 
 import java.util.Random;
 

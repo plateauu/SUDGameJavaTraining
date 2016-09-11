@@ -1,17 +1,17 @@
-package SUD_GAME;
+package com.plateauu.sudgame;
 
 import java.util.Scanner;
 
-import SUD_GAME.domain.Direction;
-import SUD_GAME.domain.Location;
-import SUD_GAME.domain.Npc;
-import SUD_GAME.domain.Player;
+import com.plateauu.sudgame.domain.Direction;
+import com.plateauu.sudgame.domain.Location;
+import com.plateauu.sudgame.domain.Npc;
+import com.plateauu.sudgame.domain.Player;
 
 /**
  * SUD Game Tutorial
  */
 
-public class App {
+public class AppBackup {
 
 	private static Thread battleThread = null;
 	private static BattleThread battle = null;
