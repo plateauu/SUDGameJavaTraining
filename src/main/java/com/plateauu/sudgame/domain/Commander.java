@@ -19,8 +19,10 @@ public class Commander {
 			;
 	
 	
+
 	private Thread battleThread = null;
 	private BattleThread battle = null;
+
 
 	
 	public void actionCommander(Player player, Scanner scan) {
