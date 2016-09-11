@@ -1,23 +1,22 @@
-package SUD_GAME;
+package com.plateauu.sudgame;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.CoreMatchers.*;
-
 import org.hamcrest.collection.IsMapContaining;
 import org.junit.Test;
 
-import SUD_GAME.domain.Direction;
-import SUD_GAME.domain.Location;
-import SUD_GAME.domain.Npc;
+import com.plateauu.sudgame.domain.Direction;
+import com.plateauu.sudgame.domain.Location;
+import com.plateauu.sudgame.domain.Npc;
 
 public class LocationTest {
 

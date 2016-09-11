@@ -1,4 +1,4 @@
-package SUD_GAME.domain;
+package com.plateauu.sudgame.domain;
 
 public enum Direction {
 	N("North"), S("South"), E("East"), W("West"), U("Up"), D("Down");

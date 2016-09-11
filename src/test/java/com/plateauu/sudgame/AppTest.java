@@ -1,4 +1,4 @@
-package SUD_GAME;
+package com.plateauu.sudgame;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
