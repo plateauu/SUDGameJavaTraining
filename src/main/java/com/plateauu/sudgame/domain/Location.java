@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.plateauu.sudgame.monsters.Npc;
+
 public class Location {
 	private String shortDescription;
 	private String longDescription;

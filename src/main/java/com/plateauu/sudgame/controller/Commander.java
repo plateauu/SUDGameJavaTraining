@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 import com.plateauu.sudgame.BattleThread;
 import com.plateauu.sudgame.domain.Direction;
-import com.plateauu.sudgame.domain.Npc;
 import com.plateauu.sudgame.domain.Player;
+import com.plateauu.sudgame.monsters.Npc;
 
 public class Commander {
 	
@@ -89,7 +89,6 @@ public class Commander {
 			stopBattle();
 			break;
 		case "exit":
-			stopBattle();
 			break;
 		default:
 			showHelp();

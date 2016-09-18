@@ -2,17 +2,21 @@ package com.plateauu.sudgame.domain;
 
 import java.util.Random;
 
+import com.plateauu.sudgame.monsters.Npc;
+
 public class Player {
 	private String playerName;
 	private Location currentLocation;
 	private int playerHealth;
 	private int playerStrenght;
+	private Fightable fightableInterface;
 
 	public Player(String name, Location currentLocation) {
 		this.playerName = name;
 		this.currentLocation = currentLocation;
 		this.playerHealth = 10000;
 		this.playerStrenght = 2;
+		this.fightableInterface = new FightBySword();
 		System.out.println("Welcome, " + this.playerName);
 		System.out.println(currentLocation.getDescription());
 	}
@@ -62,8 +66,11 @@ public class Player {
 	
 
 	public int takeAShot() {
-		Random r = new Random();
-		return this.playerStrenght + r.nextInt(4);
+		return fightableInterface.fight(this.playerStrenght, this.playerName);
+	}
+	
+	public void setWeapon(Fightable fightinhWay) {
+		this.fightableInterface = fightinhWay;
 	}
 
 }

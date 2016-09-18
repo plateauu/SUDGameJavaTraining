@@ -1,7 +1,7 @@
 package com.plateauu.sudgame;
 
-import com.plateauu.sudgame.domain.Npc;
 import com.plateauu.sudgame.domain.Player;
+import com.plateauu.sudgame.monsters.Npc;
 
 public class BattleThread implements Runnable {
 	private Npc monster;
@@ -24,17 +24,15 @@ public class BattleThread implements Runnable {
 	}
 
 	public void fightWithMonster(Npc monster, Player player) {
-
-		
 		try {
 			if (playerHits) {
 				int hitStrenght = player.takeAShot();
-				damagaTaken(monster, player, hitStrenght, playerHits);
+				damagaTaken(monster, player, hitStrenght);
 				isActive = this.checkIsAlive(monster, player);
 				playerHits = false;
 			} else {
 				int hitStrenght = monster.takeAShot();
-				damagaTaken(monster, player, hitStrenght, playerHits);
+				damagaTaken(monster, player, hitStrenght);
 				showHealth(player);
 				isActive = this.checkIsAlive(monster, player);
 				playerHits = true;
@@ -46,13 +44,11 @@ public class BattleThread implements Runnable {
 
 	}
 
-	public void damagaTaken(Npc monster, Player player, int hitStrenght, boolean playerHits) {
+	public void damagaTaken(Npc monster, Player player, int hitStrenght) {
 
 		if (playerHits) {
-			System.out.println(player.getPlayerName() + " hits " + monster.getName() + ". Hit strenght: " + hitStrenght);
 			monster.setNpcHealth(monster.getNpcHealth() - hitStrenght);
 		} else {
-			System.out.println(monster.getName() + " hits " + player.getPlayerName() + ". Hit strenght: " + hitStrenght);
 			player.setPlayerHealth(player.getPlayerHealth() - hitStrenght);
 		}
 	}
@@ -71,6 +67,7 @@ public class BattleThread implements Runnable {
 			System.out.println(player.getPlayerName() + " has fail");
 			isAlive = false;
 			isActive = false;
+			
 		}
 
 		if (monster.getNpcHealth() <= 0) {

@@ -5,7 +5,8 @@ import java.util.List;
 
 import com.plateauu.sudgame.domain.Direction;
 import com.plateauu.sudgame.domain.Location;
-import com.plateauu.sudgame.domain.Npc;
+import com.plateauu.sudgame.monsters.Monsters;
+import com.plateauu.sudgame.monsters.Npc;
 
 public class GameCreator {
 
@@ -14,7 +15,6 @@ public class GameCreator {
 	private List<Npc> gameNpc;
 
 	public GameCreator() {
-
 		this.gameLocations = new ArrayList<Location>();
 		this.gameNpc = new ArrayList<Npc>();
 
@@ -25,20 +25,29 @@ public class GameCreator {
 		addGameLocation("New York", " The city that never sleeps");
 
 		addExits("Shire", "Mordor", Direction.N);
-		addExits("Shire", "Graceland", Direction.S);
 		addExits("Mordor", "Shire", Direction.S);
+		addExits("Shire", "Graceland", Direction.S);
 		addExits("Graceland", "Shire", Direction.N);
-		addExits("Graceland", "New York", Direction.N);
+		addExits("Graceland", "New York", Direction.E);
 		addExits("New York", "Graceland", Direction.W);
 
-		addGameNpc("Zygmund", 3, 2, "Mordor");
-		addGameNpc("Alfred", 20, 5, "Mordor");
-		addGameNpc("Cinkciarz", 20, 5, "New York");
-		addGameNpc("Zenon", 20, 5, "Mordor");
-		addGameNpc("Max", 1, 1, "Graceland");
-		addGameNpc("Mini", 1, 1, "Graceland");
-		addGameNpc("Lenek", 1, 1, "Graceland");
+		addGameNpc("Zygmund", 3, 2, "Mordor", Monsters.Ogr);
+		addGameNpc("Alfred", 20, 5, "Mordor", Monsters.Ork);
+		addGameNpc("Cinkciarz", 20, 5, "New York", Monsters.Golum);
+		addGameNpc("Zenon", 20, 5, "Mordor", Monsters.Cupido);
+		addGameNpc("Max", 1, 1, "Graceland", Monsters.Cupido);
+		addGameNpc("Mini", 1, 1, "Graceland", Monsters.Cupido);
+		addGameNpc("Lenek", 1, 1, "Graceland", Monsters.Cupido);
 
+	}
+	
+
+	public List<Location> getGameLocations() {
+		return gameLocations;
+	}
+
+	public List<Npc> getGameNpc() {
+		return gameNpc;
 	}
 
 	public Location getStartLocation() {
@@ -72,8 +81,6 @@ public class GameCreator {
 	}
 	
 	
-	
-
 	public Location getGameLocation(String name) {
 		int index = getGameLocationIndex(name);
 		if (index != -1) {
@@ -83,35 +90,13 @@ public class GameCreator {
 		}
 	}
 
-	public void addGameNpc(String name, int npcHealth, int npcStrenght, String location) {
-		gameNpc.add(new Npc(name, npcHealth, npcStrenght));
-		Npc monster = getGameNpc(name);
+	
+	public void addGameNpc(String name, int npcHealth, int npcStrenght, String location, Monsters monsterType) {
+		Npc monster = Npc.createMonster(monsterType, name, npcHealth, npcStrenght); 
 		if (monster != null) {
+			gameNpc.add(monster);
 			getGameLocation(location).addMonster(monster);
 		}
-	}
-
-	
-	public int getGameNpcIndex(String name) {
-		int indexOfMonster = - 1;
-		for(Npc monster : this.gameNpc){
-			if(monster.getName() == name){
-				indexOfMonster = gameNpc.indexOf(monster);
-				break;
-			}
-		}
-		
-		return indexOfMonster;
-	}
-	
-	public Npc getGameNpc(String name) {
-		int index = getGameNpcIndex(name);
-		if (index != -1) {
-			return gameNpc.get(index);
-		} else {
-			return null;
-		}
-
 	}
 
 	public void addExits(String startLocation, String endLocation, Direction direction) {

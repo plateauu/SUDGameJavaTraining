@@ -14,9 +14,10 @@ import java.util.Map;
 import org.hamcrest.collection.IsMapContaining;
 import org.junit.Test;
 
-import com.plateauu.sudgame.domain.Direction;
-import com.plateauu.sudgame.domain.Location;
-import com.plateauu.sudgame.domain.Npc;
+import com.plateauu.sudgame.domain.*;
+import com.plateauu.sudgame.monsters.Npc;
+import com.plateauu.sudgame.monsters.NpcOgr;
+import com.plateauu.sudgame.monsters.NpcOrk;
 
 public class LocationTest {
 
@@ -45,7 +46,7 @@ public class LocationTest {
 	public void testIsMonsterExists() {
 		Location location = new Location("shire", "long description shire");
 		String name = "Ork";
-		Npc ork = new Npc(name, 10, 3);
+		Npc ork = new NpcOrk(name, 10, 3);
 		location.addMonster(ork);
 		assertTrue(location.isMonsterExists(name));
 
@@ -55,7 +56,7 @@ public class LocationTest {
 	public void testAddMonster(){
 		Location location = new Location("shire", "long description shire");
 		String name = "Ork";
-		Npc ork = new Npc(name, 10, 3);
+		Npc ork = new NpcOrk(name, 10, 3);
 		location.addMonster(ork);
 		assertThat(location.getMonsterList(), containsInAnyOrder(hasProperty("name", is("Ork"))));
 	}
@@ -63,8 +64,8 @@ public class LocationTest {
 	@Test
 	public void testGetMonsterString(){
 		Location location = new Location("shire", "long description shire");
-		Npc ork = new Npc("Ork", 10, 3);
-		Npc bat = new Npc("Batman", 10, 3);
+		Npc ork = new NpcOgr("Ork", 10, 3);
+		Npc bat = new NpcOrk("Batman", 10, 3);
 		location.addMonster(ork);
 		location.addMonster(bat);
 		assertEquals(null, "Ork, Batman, ", location.getMonsterString());
