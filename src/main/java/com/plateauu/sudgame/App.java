@@ -2,7 +2,7 @@ package com.plateauu.sudgame;
 
 import java.util.Scanner;
 
-import com.plateauu.sudgame.domain.Commander;
+import com.plateauu.sudgame.controller.Commander;
 import com.plateauu.sudgame.domain.Player;
 
 /*

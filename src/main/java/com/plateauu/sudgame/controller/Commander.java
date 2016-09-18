@@ -1,8 +1,11 @@
-package com.plateauu.sudgame.domain;
+package com.plateauu.sudgame.controller;
 
 import java.util.Scanner;
 
 import com.plateauu.sudgame.BattleThread;
+import com.plateauu.sudgame.domain.Direction;
+import com.plateauu.sudgame.domain.Npc;
+import com.plateauu.sudgame.domain.Player;
 
 public class Commander {
 	
