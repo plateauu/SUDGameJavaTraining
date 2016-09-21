@@ -1,6 +1,7 @@
 package com.plateauu.sudgame.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,8 +39,9 @@ public class Location {
 
 	private String getExitString() {
 		StringBuilder exitString = new StringBuilder();
-	
-		for (Direction direction : exits.keySet()) {
+		List<Direction> locationsExits = new ArrayList<>(exits.keySet());
+		Collections.sort(locationsExits);
+		for (Direction direction : locationsExits) {
 			exitString.append(direction.getDirectionDescription());
 			exitString.append(", ");
 		}

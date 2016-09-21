@@ -11,6 +11,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.plateauu.sudgame.domain.Direction;
@@ -19,11 +20,19 @@ import com.plateauu.sudgame.monsters.Monsters;
 import com.plateauu.sudgame.monsters.Npc;
 
 public class GameCreatorTest {
+	
+	GameCreator game;
+	
+	@Before
+	public void initTest(){
+		game = new GameCreator();
+		game.addGameNpc("Marcin", 13, 3, "Shire", Monsters.Ork);
+		game.addExits("Shire", "New York", Direction.U);
+	}
 
 	@Test
 	public void testAddGameNpc() {
-		GameCreator game = new GameCreator();
-		game.addGameNpc("Marcin", 13, 3, "Shire", Monsters.Ork);
+		
 		List<Npc> list = game.getGameNpc();
 		
 		int index = -1;
@@ -33,20 +42,18 @@ public class GameCreatorTest {
 				break;
 			}
 		}
+		
 		assertTrue(list.get(index).getName().equals("Marcin"));
 	}
 
 	@Test
 	public void testAddExits() {
-		GameCreator game = new GameCreator();
-		game.addExits("Shire", "New York", Direction.U);
 		assertTrue(game.getGameLocation("Shire").getExtisLists().containsKey(Direction.U));
 
 	}
 
 	@Test
 	public void testAddGameLocation() {
-		GameCreator game = new GameCreator();
 		game.addGameLocation("shire", "shire is such a beautiful place");
 		List<Location> list = game.getGameLocations();
 		assertTrue(list.get(4).getShortDescription().equals("shire"));
