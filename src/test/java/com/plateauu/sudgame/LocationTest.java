@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hamcrest.collection.IsMapContaining;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.plateauu.sudgame.domain.*;
@@ -20,64 +21,60 @@ import com.plateauu.sudgame.monsters.NpcOgr;
 import com.plateauu.sudgame.monsters.NpcOrk;
 
 public class LocationTest {
+	
+	Location location;
+	Npc ork;
+	Npc bat;
+	Location mordor;
+	Location shire;
 
+	@Before
+	public void initTest(){
+		shire = new Location("shire", "long description shire");
+		mordor = new Location("mordor", "long description mordor");
+		mordor.addLocation(Direction.S, shire);
+		shire.addLocation(Direction.N, mordor);
+		ork = new NpcOgr("Ork", 10, 3);
+		bat = new NpcOrk("Batman", 10, 3);
+		mordor.addMonster(ork);
+		mordor.addMonster(bat);
+	}
+	
 	@Test
 	public void testGetShortDescription() {
-		Location location = new Location("shire", "long description shire");
-		String shortDescription = location.getShortDescription();
+		String shortDescription = shire.getShortDescription();
 		assertEquals("shire", shortDescription);
 	}
 
 	@Test
 	public void testGetDescription() {
-		Location location = new Location("shire", "long description shire");
-		String description = location.getDescription();
-		assertNotNull(description);
+		String actualDescription = shire.getDescription();
+		String excpectedDescription = "Now, you are at: shire\nlong description shire\nVisible exits: North, \nEncountered monsters: None";
+		assertNotNull("Checking if this not null description", actualDescription);
+		assertEquals("compare string", excpectedDescription, actualDescription);
 	}
 
 	@Test
 	public void testIsDescription() {
-		Location location = new Location("shire", "long description shire");
-		String description = location.getDescription();
-		assertTrue(description.contains("shire"));
+		String description = shire.getDescription();
+		assertTrue("Checking if description is correct",description.contains("shire"));
 	}
 
 	@Test
 	public void testIsMonsterExists() {
-		Location location = new Location("shire", "long description shire");
-		String name = "Ork";
-		Npc ork = new NpcOrk(name, 10, 3);
-		location.addMonster(ork);
-		assertTrue(location.isMonsterExists(name));
+		String expectedName = "Ork";
+		assertTrue("isMontersExits test",mordor.isMonsterExists(expectedName));
 
 	}
 
-	@Test
-	public void testAddMonster(){
-		Location location = new Location("shire", "long description shire");
-		String name = "Ork";
-		Npc ork = new NpcOrk(name, 10, 3);
-		location.addMonster(ork);
-		assertThat(location.getMonsterList(), containsInAnyOrder(hasProperty("name", is("Ork"))));
-	}
-	
 	@Test
 	public void testGetMonsterString(){
-		Location location = new Location("shire", "long description shire");
-		Npc ork = new NpcOgr("Ork", 10, 3);
-		Npc bat = new NpcOrk("Batman", 10, 3);
-		location.addMonster(ork);
-		location.addMonster(bat);
-		assertEquals(null, "Ork, Batman, ", location.getMonsterString());
+		assertEquals("Monster test's", "Ork, Batman, ", mordor.getMonsterString());
+		
 	}
 	
 	@Test
 	public void testExitsMap(){
-		Location shire = new Location("shire", "long description shire");
-		Location mordor = new Location("mordor", "long description mordor");
-		mordor.addLocation(Direction.S, shire);
-		shire.addLocation(Direction.N, mordor);
-		
 		Map<Direction, Location> map = mordor.getExtisLists();
 		Map<Direction, Location> expectedMap = new HashMap<>();
 		expectedMap.put(Direction.S, shire);
