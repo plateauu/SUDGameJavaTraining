@@ -1,16 +1,16 @@
-package com.plateauu.sudgame.repository;
+package com.plateauu.sudgame.services;
 
 import java.util.Scanner;
 
-import com.plateauu.sudgame.domain.BattleThread;
+import com.plateauu.sudgame.BattleThread;
 import com.plateauu.sudgame.domain.Direction;
 import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.monsters.Npc;
 
 public class CommandReader {
 
-    private Thread battleThread = null;
-    private BattleThread battle = null;
+    private static Thread battleThread = null;
+    private static BattleThread battle = null;
 
     private final static String HELP = " "
             + "\n Welcome to SUD GAME v.0.1"
@@ -22,22 +22,21 @@ public class CommandReader {
             + "\n k (kill) [monster_name]: attacks to [monster_name]"
             + "\n r (run): run away from an battlefield";
 
-    public void actionCommander(Player player, Scanner scan) {
+    public static void actionCommander(Player player, Scanner scan) {
 
         String command = "";
         while (!command.equalsIgnoreCase("Exit")) {
             try {
                 command = readPlayerInput(scan).toLowerCase();
                 String commands[] = command.split(" ");
-                actOnCommand(commands, player, this);
+                actOnCommand(commands, player);
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
         System.out.println("Good bye!");
     }
 
-    public void actOnCommand(String[] commands, Player player, CommandReader commandReader) throws InterruptedException {
+    public static void actOnCommand(String[] commands, Player player) throws InterruptedException {
         switch (commands[0]) {
             case "n":
             case "north":
@@ -71,7 +70,7 @@ public class CommandReader {
                 break;
             case "r":
             case "run":
-                commandReader.stopBattle();
+                stopBattle();
                 break;
             case "exit":
                 break;
@@ -81,11 +80,11 @@ public class CommandReader {
         }
     }
 
-    private void showHelp() {
+    private static void showHelp() {
         System.out.println(CommandReader.HELP);
     }
 
-    private void attack(String name, Player player) {
+    private static void attack(String name, Player player) {
         boolean isPresent = player.ifMonsterNearby(name);
         Npc monster = player.prepareMonster(name);
         if (isPresent) {
@@ -98,7 +97,7 @@ public class CommandReader {
         }
     }
 
-    private void move(Direction direction, Player player) {
+    private  static void move(Direction direction, Player player) {
         boolean hasMoved = player.move(direction);
         if (hasMoved) {
             System.out.println(player.getLocationDescription());
@@ -107,13 +106,13 @@ public class CommandReader {
         }
     }
 
-    private String readPlayerInput(Scanner scan) {
+    private static String readPlayerInput(Scanner scan) {
         System.out.print(">");
         String command = scan.nextLine();
         return command;
     }
 
-    private void stopBattle() {
+    private static void stopBattle() {
         if (battleThread != null) {
             battle.setDeactive();
             System.out.println("You run out the battle");

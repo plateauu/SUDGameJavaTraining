@@ -24,13 +24,16 @@ public class LocationTest {
 	Npc bat;
 	Location mordor;
 	Location shire;
+        Location newyork;
 
 	@Before
 	public void initTest(){
 		shire = new Location("shire", "long description shire");
 		mordor = new Location("mordor", "long description mordor");
+                newyork = new Location("new york", "long description new york");
 		mordor.addLocation(Direction.S, shire);
 		shire.addLocation(Direction.N, mordor);
+                shire.addLocation(Direction.S, newyork);
 		ork = new NpcOgr("Ork", 10, 3);
 		bat = new NpcOrk("Batman", 10, 3);
 		mordor.addMonster(ork);
@@ -46,7 +49,7 @@ public class LocationTest {
 	@Test
 	public void testGetDescription() {
 		String actualDescription = shire.getDescription();
-		String excpectedDescription = "Now, you are at: shire\nlong description shire\nVisible exits: North, \nEncountered monsters: None";
+		String excpectedDescription = "Now, you are at: shire\nlong description shire\nVisible exits: North, South\nEncountered monsters: None";
 		assertNotNull("Checking if this not null description", actualDescription);
 		assertEquals("compare string", excpectedDescription, actualDescription);
 	}
@@ -66,7 +69,7 @@ public class LocationTest {
 
 	@Test
 	public void testGetMonsterString(){
-		assertEquals("Monster test's", "Ork, Batman, ", mordor.getMonsterString());
+		assertEquals("Monster test's", "Ork, Batman", mordor.getMonsterString());
 		
 	}
 	

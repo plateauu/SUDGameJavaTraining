@@ -9,8 +9,14 @@ public enum Direction {
 		this.directionDescription = directionDescription;
 	}
 
-	public String getDirectionDescription() {
-		return directionDescription;
-	}
+
+    @Override
+    public String toString() {
+        return directionDescription;
+    }
+        
+        
+        
+        
 
 }

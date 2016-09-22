@@ -52,4 +52,11 @@ public abstract class Npc {
 		
 	}
 
+    @Override
+    public String toString() {
+        return this.npcName;
+    }
+    
+    
+
 }

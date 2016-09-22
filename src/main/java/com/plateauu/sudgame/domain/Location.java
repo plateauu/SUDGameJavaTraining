@@ -1,5 +1,6 @@
 package com.plateauu.sudgame.domain;
 
+import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,26 +44,16 @@ public class Location {
     }
 
     private String getExitString() {
-        StringBuilder exitString = new StringBuilder();
         List<Direction> locationsExits = new ArrayList<>(exits.keySet());
         Collections.sort(locationsExits);
-        for (Direction direction : locationsExits) {
-            exitString.append(direction.getDirectionDescription());
-            exitString.append(", ");
-        }
-        return exitString.toString();
+        return Joiner.on(", ").join(locationsExits);
     }
 
     public String getMonsterString() {
         if (monsters.isEmpty()) {
             return "None";
         } else {
-            StringBuilder monsterString = new StringBuilder();
-            for (Npc monster : monsters) {
-                monsterString.append(monster.getName());
-                monsterString.append(", ");
-            }
-            return monsterString.toString();
+            return Joiner.on(", ").join(monsters);
         }
     }
 
