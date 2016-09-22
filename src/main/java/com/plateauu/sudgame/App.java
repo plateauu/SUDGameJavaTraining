@@ -3,7 +3,7 @@ package com.plateauu.sudgame;
 import com.plateauu.sudgame.repository.GameCreatorRepository;
 import java.util.Scanner;
 
-import com.plateauu.sudgame.services.CommandReader;
+import com.plateauu.sudgame.services.CommandParser;
 import com.plateauu.sudgame.domain.Player;
 
 /*
@@ -13,7 +13,10 @@ public class App {
 
     public static void main(String[] args) {
 
+        
         GameCreatorRepository game = new GameCreatorRepository();
+        CommandParser commandParser = new CommandParser();
+
         game.setStartLocation("Shire");
 
         System.out.println("What's your name?");
@@ -21,7 +24,7 @@ public class App {
         String scanName = scan.nextLine();
         Player player = new Player(scanName, game.getStartLocation());
 
-        CommandReader.actionCommander(player, scan);
+        commandParser.actionCommander(player, scan);
 
     }
 

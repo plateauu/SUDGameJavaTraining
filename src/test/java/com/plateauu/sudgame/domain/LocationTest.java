@@ -35,8 +35,8 @@ public class LocationTest {
 		shire.addLocation(Direction.N, mordor);
                 shire.addLocation(Direction.S, newyork);
 		ork = new NpcOgr("Ork", 10, 3);
-		bat = new NpcOrk("Batman", 10, 3);
 		mordor.addMonster(ork);
+		bat = new NpcOrk("Batman", 10, 3);
 		mordor.addMonster(bat);
 	}
 	

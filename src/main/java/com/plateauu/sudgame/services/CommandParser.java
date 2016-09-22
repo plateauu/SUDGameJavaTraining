@@ -7,10 +7,10 @@ import com.plateauu.sudgame.domain.Direction;
 import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.monsters.Npc;
 
-public class CommandReader {
+public class CommandParser {
 
-    private static Thread battleThread = null;
-    private static BattleThread battle = null;
+    private Thread battleThread = null;
+    private BattleThread battle = null;
 
     private final static String HELP = " "
             + "\n Welcome to SUD GAME v.0.1"
@@ -22,7 +22,7 @@ public class CommandReader {
             + "\n k (kill) [monster_name]: attacks to [monster_name]"
             + "\n r (run): run away from an battlefield";
 
-    public static void actionCommander(Player player, Scanner scan) {
+    public void actionCommander(Player player, Scanner scan) {
 
         String command = "";
         while (!command.equalsIgnoreCase("Exit")) {
@@ -36,7 +36,7 @@ public class CommandReader {
         System.out.println("Good bye!");
     }
 
-    public static void actOnCommand(String[] commands, Player player) throws InterruptedException {
+    public void actOnCommand(String[] commands, Player player) throws InterruptedException {
         switch (commands[0]) {
             case "n":
             case "north":
@@ -81,10 +81,10 @@ public class CommandReader {
     }
 
     private static void showHelp() {
-        System.out.println(CommandReader.HELP);
+        System.out.println(CommandParser.HELP);
     }
 
-    private static void attack(String name, Player player) {
+    void attack(String name, Player player) {
         boolean isPresent = player.ifMonsterNearby(name);
         Npc monster = player.prepareMonster(name);
         if (isPresent) {
@@ -97,7 +97,7 @@ public class CommandReader {
         }
     }
 
-    private  static void move(Direction direction, Player player) {
+    void move(Direction direction, Player player) {
         boolean hasMoved = player.move(direction);
         if (hasMoved) {
             System.out.println(player.getLocationDescription());
@@ -106,13 +106,13 @@ public class CommandReader {
         }
     }
 
-    private static String readPlayerInput(Scanner scan) {
+    private String readPlayerInput(Scanner scan) {
         System.out.print(">");
         String command = scan.nextLine();
         return command;
     }
 
-    private static void stopBattle() {
+    private void stopBattle() {
         if (battleThread != null) {
             battle.setDeactive();
             System.out.println("You run out the battle");

@@ -1,4 +1,4 @@
-package com.plateauu.sudgame;
+package com.plateauu.sudgame.repository;
 
 import com.plateauu.sudgame.repository.GameCreatorRepository;
 import static org.junit.Assert.*;

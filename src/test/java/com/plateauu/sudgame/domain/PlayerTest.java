@@ -19,8 +19,8 @@ public class PlayerTest {
     public void initTest() {
         shire = new Location("shire", "long description shire");
         mordor = new Location("mordor", "long description mordor");
-        mordor.addLocation(Direction.S, shire);
         shire.addLocation(Direction.N, mordor);
+        mordor.addLocation(Direction.S, shire);
         ork = new NpcOgr("Ork", 10, 3);
         bat = new NpcOrk("Batman", 10, 3);
         mordor.addMonster(ork);
