@@ -8,6 +8,10 @@ import java.util.Map;
 
 import com.plateauu.sudgame.monsters.Npc;
 
+/*
+ * TODO: add Joiner from Guava to getMonsterString and getExitString
+ * TODO: override toString() at Direction and NPC
+ */
 public class Location {
 	private String shortDescription;
 	private String longDescription;
@@ -49,7 +53,7 @@ public class Location {
 	}
 
 	public String getMonsterString() {
-		if (monsters.size() == 0) {
+		if (monsters.isEmpty()) {
 			return "None";
 		} else {
 			StringBuilder monsterString = new StringBuilder();

@@ -1,4 +1,4 @@
-package com.plateauu.sudgame;
+package com.plateauu.sudgame.domain;
 
 import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.monsters.Npc;

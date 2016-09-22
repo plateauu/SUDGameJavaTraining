@@ -1,8 +1,9 @@
 package com.plateauu.sudgame;
 
+import com.plateauu.sudgame.repository.GameCreatorRepository;
 import java.util.Scanner;
 
-import com.plateauu.sudgame.controller.Commander;
+import com.plateauu.sudgame.repository.CommandReader;
 import com.plateauu.sudgame.domain.Player;
 
 /*
@@ -13,7 +14,7 @@ public class App {
 
 	public static void main(String[] args) {
 
-		GameCreator game = new GameCreator();
+		GameCreatorRepository game = new GameCreatorRepository();
 
 		game.setStartLocation("Shire");
 
@@ -22,7 +23,7 @@ public class App {
 		String scanName = scan.nextLine();
 		Player player = new Player(scanName, game.getStartLocation());
 
-		Commander commander = new Commander();
+		CommandReader commander = new CommandReader();
 		commander.actionCommander(player, scan);
 
 	}

@@ -2,3 +2,4 @@
 target/
 .settings/
 /src/test/java/SUD_GAME/AllTests.java
+/nbproject/

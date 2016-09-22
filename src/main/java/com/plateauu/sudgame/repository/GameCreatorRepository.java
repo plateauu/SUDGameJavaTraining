@@ -1,4 +1,4 @@
-package com.plateauu.sudgame;
+package com.plateauu.sudgame.repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,15 +8,15 @@ import com.plateauu.sudgame.domain.Location;
 import com.plateauu.sudgame.monsters.Monsters;
 import com.plateauu.sudgame.monsters.Npc;
 
-public class GameCreator {
+public class GameCreatorRepository {
 
 	private Location startLocation;
-	private List<Location> gameLocations;
-	private List<Npc> gameNpc;
+	private final List<Location> gameLocations;
+	private final List<Npc> gameNpc;
 
-	public GameCreator() {
-		this.gameLocations = new ArrayList<Location>();
-		this.gameNpc = new ArrayList<Npc>();
+	public GameCreatorRepository() {
+		this.gameLocations = new ArrayList<>();
+		this.gameNpc = new ArrayList<>();
 
 		addGameLocation("Shire", "Beautful forest, a land where sun never setting down");
 		addGameLocation("Mordor", "It is a land where dark lord rule since ever" + "\n"

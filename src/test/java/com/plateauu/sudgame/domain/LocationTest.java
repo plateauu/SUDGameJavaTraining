@@ -1,12 +1,5 @@
-package com.plateauu.sudgame;
+package com.plateauu.sudgame.domain;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,10 +8,14 @@ import org.hamcrest.collection.IsMapContaining;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.plateauu.sudgame.domain.*;
 import com.plateauu.sudgame.monsters.Npc;
 import com.plateauu.sudgame.monsters.NpcOgr;
 import com.plateauu.sudgame.monsters.NpcOrk;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class LocationTest {
 	
