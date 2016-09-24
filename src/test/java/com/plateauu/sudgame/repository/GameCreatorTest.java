@@ -20,7 +20,7 @@ public class GameCreatorTest {
     @Before
     public void initTest() {
         game = new GameCreatorRepository();
-        game.addGameNpc("Marcin", 13, 3, "Shire", Monsters.Ork);
+        game.addGameNpc("Marcin", 13, 3, 2, "Shire", Monsters.Ork);
         game.addExits("Shire", "New York", Direction.U);
     }
 

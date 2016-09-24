@@ -9,16 +9,12 @@ import java.util.Map;
 
 import com.plateauu.sudgame.monsters.Npc;
 
-/*
- * TODO: add Joiner from Guava to getMonsterString and getExitString
- * TODO: override toString() at Direction and NPC
- */
 public class Location {
 
-    private String shortDescription;
-    private String longDescription;
-    private Map<Direction, Location> exits;
-    private List<Npc> monsters;
+    private final String shortDescription;
+    private final String longDescription;
+    private final Map<Direction, Location> exits;
+    private final List<Npc> monsters;
 
     public Location(String shortDescription, String longDescription) {
         this.shortDescription = shortDescription;
@@ -40,7 +36,6 @@ public class Location {
                 + this.longDescription + "\n" + "Visible exits: "
                 + getExitString() + "\n" + "Encountered monsters: "
                 + getMonsterString();
-
     }
 
     private String getExitString() {
@@ -48,7 +43,7 @@ public class Location {
         Collections.sort(locationsExits);
         return Joiner.on(", ").join(locationsExits);
     }
-
+    
     public String getMonsterString() {
         if (monsters.isEmpty()) {
             return "None";
@@ -121,6 +116,16 @@ public class Location {
 
     public Map<Direction, Location> getExtisLists() {
         return this.exits;
+    }
+    
+    public String getSingleNpcStats(String name){
+        boolean monsterExists = this.isMonsterExists(name);
+        if(monsterExists){
+            Npc monster = getMonster(name);
+            return monster.getNpcStatistics();
+        } else {
+            return "There is no one called " + name + " here";
+        }
     }
 
 }

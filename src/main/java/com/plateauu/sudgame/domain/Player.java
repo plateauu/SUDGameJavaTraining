@@ -9,15 +9,17 @@ public class Player {
     private final String playerName;
     private Location currentLocation;
     private int playerHealth;
-    private final int playerStrenght;
-    private Fightable fightableInterface;
+    private int playerStrenght;
+    private FightableStrategy fightableInterface;
+    private int playerAgility;
 
     public Player(String name, Location currentLocation) {
         this.playerName = name;
         this.currentLocation = currentLocation;
         this.playerHealth = 10000;
         this.playerStrenght = 2;
-        this.fightableInterface = new FightBySword();
+        this.playerAgility = 10;
+        this.fightableInterface = new FightBySwordStrategy();
         System.out.println("Welcome, " + this.playerName);
         System.out.println(currentLocation.getDescription());
     }
@@ -47,12 +49,37 @@ public class Player {
         return playerStrenght;
     }
 
+    public void setPlayerStrenght(int playerStrenght) {
+        this.playerStrenght = playerStrenght;
+    }
+    
     public int getPlayerHealth() {
         return playerHealth;
     }
 
+    public int getPlayerAgility() {
+        return playerAgility;
+    }
+
+    public void setPlayerAgility(int playerAgility) {
+        this.playerAgility = playerAgility;
+    }
+    
+    
+    
+    public String getPlayerStatistics(){
+        return "Name: " + this.playerName
+                + "\nHealth: " + this.playerHealth 
+                + "\nStrenght: " + this.playerStrenght 
+                + "\nAgility: " + this.playerAgility;       
+    }
+
     public void setPlayerHealth(int playerHealth) {
         this.playerHealth = playerHealth;
+    }
+
+    public void setWeapon(FightableStrategy fightinhWay) {
+        this.fightableInterface = fightinhWay;
     }
 
     public boolean move(Direction direction) {
@@ -69,8 +96,11 @@ public class Player {
         return fightableInterface.fight(this.playerStrenght, this.playerName);
     }
 
-    public void setWeapon(Fightable fightinhWay) {
-        this.fightableInterface = fightinhWay;
+    public String getMonsterStatistics(String NpcName) {
+        return this.currentLocation.getSingleNpcStats(NpcName);
     }
+    
+    
+
 
 }

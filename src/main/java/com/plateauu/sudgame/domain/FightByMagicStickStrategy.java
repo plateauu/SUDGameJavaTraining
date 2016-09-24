@@ -2,7 +2,7 @@ package com.plateauu.sudgame.domain;
 
 import java.util.Random;
 
-public class FightByMagicStick implements Fightable {
+public class FightByMagicStickStrategy implements FightableStrategy {
 
 	@Override
 	public int fight(int strenght, String name) {

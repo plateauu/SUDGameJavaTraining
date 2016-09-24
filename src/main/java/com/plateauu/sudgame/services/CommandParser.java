@@ -14,13 +14,15 @@ public class CommandParser {
 
     private final static String HELP = " "
             + "\n Welcome to SUD GAME v.0.1"
-            + "\n Expected parameteres: "
-            + "\n N (north): go to north"
-            + "\n S (south): go to south"
-            + "\n E (east): go to east"
-            + "\n W (west): go to west"
+            + "\n Expected parameters: "
+            + "\n N (north): moves to north"
+            + "\n S (south): moves to south"
+            + "\n E (east): moves to east"
+            + "\n W (west): moves to west"
             + "\n k (kill) [monster_name]: attacks to [monster_name]"
-            + "\n r (run): run away from an battlefield";
+            + "\n r (run): run away from the battlefield"
+            + "\n stats: shows player's statistics"
+            + "\n stats [monster_name]: shows monster's info";
 
     public void actionCommander(Player player, Scanner scan) {
 
@@ -74,6 +76,12 @@ public class CommandParser {
                 break;
             case "exit":
                 break;
+            case "stats":
+                showStats(commands, player);
+                break;
+            case "ms":
+                showMonsterStats(commands);
+                break;    
             default:
                 showHelp();
                 break;
@@ -116,7 +124,22 @@ public class CommandParser {
         if (battleThread != null) {
             battle.setDeactive();
             System.out.println("You run out the battle");
+        } else {
+            System.out.println("You are not during the combat");
         }
+    }
+
+    private void showStats(String[] commands, Player player) {
+        if(commands.length == 1){
+            System.out.println(player.getPlayerStatistics());
+        } else {
+            String singleMonsterStats = player.getMonsterStatistics(commands[1]);
+            System.out.println(singleMonsterStats);
+        }
+    }
+
+    private void showMonsterStats(String[] commands) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

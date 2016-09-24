@@ -36,8 +36,8 @@ public class CommandParserTest {
     @Test
     public void testParserKill() throws InterruptedException {
         Player player = new Player("PLateauu", shire);
-        Npc ork  = new NpcOgr("Ork", 10, 3);
-        mordor.addMonster (ork);
+        Npc ork  = new NpcOgr("Ork", 10, 3 ,2);
+        shire.addMonster(ork);
         String[] command = {"kill", "ork"};
         
         CommandParser parser = new CommandParser();

@@ -1,14 +1,15 @@
 package com.plateauu.sudgame.monsters;
 
-import com.plateauu.sudgame.domain.FightByHand;
+import com.plateauu.sudgame.domain.FightByHandStrategy;
 
-public class NpcOrk extends Npc{
+public class NpcOrk extends Npc {
 
-	public NpcOrk(String name, int npcHealth, int npcStrenght) {
-		super(name, npcHealth, npcStrenght);
-		fightableInterface = new FightByHand();
-	}
+    private static final String NPCRACE = "Ork";
 
-	
-	
+    public NpcOrk(String name, int npcHealth, int npcStrenght, int npcAgility) {
+        super(name, npcHealth, npcStrenght, npcAgility);
+        fightableInterface = new FightByHandStrategy();
+        this.npcRace = NPCRACE;
+    }
+
 }
