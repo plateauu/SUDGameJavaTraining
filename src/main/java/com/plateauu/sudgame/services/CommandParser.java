@@ -1,5 +1,8 @@
 package com.plateauu.sudgame.services;
 
+import com.plateauu.sudgame.AgilityBattleStrategy;
+import com.plateauu.sudgame.ClassicBattleStrategy;
+import com.plateauu.sudgame.BattleStrategy;
 import java.util.Scanner;
 
 import com.plateauu.sudgame.BattleThread;
@@ -8,10 +11,6 @@ import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.monsters.Npc;
 
 public class CommandParser {
-
-    private Thread battleThread = null;
-    private BattleThread battle = null;
-
     private final static String HELP = " "
             + "\n Welcome to SUD GAME v.0.1"
             + "\n Expected parameters: "
@@ -23,6 +22,13 @@ public class CommandParser {
             + "\n r (run): run away from the battlefield"
             + "\n stats: shows player's statistics"
             + "\n stats [monster_name]: shows monster's info";
+    private static void showHelp() {
+        System.out.println(CommandParser.HELP);
+    }
+
+    private Thread battleThread = null;
+    private BattleThread battle = null;
+
 
     public void actionCommander(Player player, Scanner scan) {
 
@@ -42,22 +48,18 @@ public class CommandParser {
         switch (commands[0]) {
             case "n":
             case "north":
-                stopBattle();
                 move(Direction.N, player);
                 break;
             case "s":
             case "south":
-                stopBattle();
                 move(Direction.S, player);
                 break;
             case "e":
             case "east":
-                stopBattle();
                 move(Direction.E, player);
                 break;
             case "w":
             case "west":
-                stopBattle();
                 move(Direction.W, player);
                 break;
             case "a":
@@ -79,30 +81,33 @@ public class CommandParser {
             case "stats":
                 showStats(commands, player);
                 break;
-            case "ms":
-                showMonsterStats(commands);
-                break;    
             default:
                 showHelp();
                 break;
         }
     }
 
-    private static void showHelp() {
-        System.out.println(CommandParser.HELP);
-    }
 
     void attack(String name, Player player) {
         boolean isPresent = player.ifMonsterNearby(name);
         Npc monster = player.prepareMonster(name);
+
+        
+
         if (isPresent) {
-            battle = new BattleThread(monster, player);
-            battleThread = new Thread(battle);
-            battleThread.setName("Fight");
-            battleThread.start();
+            beginCombat(monster, player);
         } else {
             System.out.println("There is no monster called  " + name + " to attack");
         }
+    }
+
+    private void beginCombat(Npc monster, Player player) {
+        BattleStrategy bs = new AgilityBattleStrategy();
+        
+        battle = new BattleThread(monster, player, bs);
+        battleThread = new Thread(battle);
+        battleThread.setName("Fight");
+        battleThread.start();
     }
 
     void move(Direction direction, Player player) {
@@ -124,22 +129,16 @@ public class CommandParser {
         if (battleThread != null) {
             battle.setDeactive();
             System.out.println("You run out the battle");
-        } else {
-            System.out.println("You are not during the combat");
         }
     }
 
     private void showStats(String[] commands, Player player) {
-        if(commands.length == 1){
-            System.out.println(player.getPlayerStatistics());
+        if (commands.length == 1) {
+            System.out.println(player.getStatistics());
         } else {
             String singleMonsterStats = player.getMonsterStatistics(commands[1]);
             System.out.println(singleMonsterStats);
         }
-    }
-
-    private void showMonsterStats(String[] commands) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

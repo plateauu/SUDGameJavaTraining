@@ -1,65 +1,60 @@
 package com.plateauu.sudgame.monsters;
 
+import com.plateauu.sudgame.Statistics;
 import com.plateauu.sudgame.domain.FightableStrategy;
 
 public abstract class Npc {
 
-    private String npcName;
-    String npcRace;
-    private int npcHealth;
-    private int npcStrenght;
-    private int npcAgility;
+    private final String npcName;
+    private final String npcRace;
+    private final Statistics stats;
     FightableStrategy fightableInterface;
 
-    public Npc(String name, int npcHealth, int npcStrenght, int npcAgility) {
+    public Npc(String name, int health, int strenght, String race) {
         this.npcName = name;
-        this.npcHealth = npcHealth;
-        this.npcStrenght = npcStrenght;
-        this.npcAgility = npcAgility;
+        this.npcRace = race;
+        stats = new Statistics(health, strenght, 10);
+    }
+
+    public Npc(String name, int health, int strenght, int agility, String race) {
+        this.npcName = name;
+        this.npcRace = race;
+        stats = new Statistics(health, strenght, agility);
+
     }
 
     public String getName() {
         return npcName;
     }
 
-    public int getNpcHealth() {
-        return npcHealth;
+    public int getHealth() {
+        return stats.getHealth();
     }
 
-    public void setNpcHealth(int npcHealth) {
-        this.npcHealth = npcHealth;
+    public void setHealth(int npcHealth) {
+        stats.setHealth(npcHealth);
     }
 
     public int getStrenght() {
-        return npcStrenght;
+        return stats.getStrenght();
     }
 
-    public void setNpcStrenght(int npcStrenght) {
-        this.npcStrenght = npcStrenght;
+    public int getAgility() {
+        return stats.getAgility();
     }
 
-    public int getNpcAgility() {
-        return npcAgility;
-    }
-
-    public void setNpcAgility(int npcAgility) {
-        this.npcAgility = npcAgility;
-    }
-    
-    public int takeAShot() {
-        return fightableInterface.fight(this.npcStrenght, this.npcName);
+    public int calculateHitStrenght() {
+        return fightableInterface.fight(this.getStrenght(), this.npcName);
     }
 
     public void setWeapon(FightableStrategy chosenWeapon) {
         this.fightableInterface = chosenWeapon;
     }
-    
-    public String getNpcStatistics(){
-         return "Name: " + this.npcName
+
+    public String getStatistics() {
+        return "Name: " + this.npcName
                 + "\nRace: " + this.npcRace
-                + "\nHealth: " + this.npcHealth 
-                + "\nStrenght: " + this.npcStrenght 
-                + "\nAgility: " + this.npcAgility;        
+                + "\n" + stats.toString();
     }
 
     public static Npc createMonster(Monsters monster, String name, int npcHealth, int npcStrenght, int npcAgility) {
@@ -78,6 +73,10 @@ public abstract class Npc {
     @Override
     public String toString() {
         return this.npcName;
+    }
+
+    public boolean isAlive() {
+        return stats.getHealth() > 0;
     }
 
 }

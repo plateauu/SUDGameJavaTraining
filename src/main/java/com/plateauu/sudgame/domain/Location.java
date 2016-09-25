@@ -122,7 +122,7 @@ public class Location {
         boolean monsterExists = this.isMonsterExists(name);
         if(monsterExists){
             Npc monster = getMonster(name);
-            return monster.getNpcStatistics();
+            return monster.getStatistics();
         } else {
             return "There is no one called " + name + " here";
         }

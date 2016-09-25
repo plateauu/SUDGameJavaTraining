@@ -22,7 +22,7 @@ public class App {
         System.out.println("What's your name?");
         Scanner scan = new Scanner(System.in);
         String scanName = scan.nextLine();
-        Player player = new Player(scanName, game.getStartLocation());
+        Player player = new Player(scanName, game.getStartLocation(),10, 25);
 
         commandParser.actionCommander(player, scan);
 

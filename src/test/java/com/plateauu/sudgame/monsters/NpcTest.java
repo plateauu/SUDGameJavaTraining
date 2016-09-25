@@ -22,18 +22,15 @@ public class NpcTest {
         mordor = new Location("mordor", "long description mordor");
         shire.addLocation(Direction.N, mordor);
         mordor.addLocation(Direction.S, shire);
-        ork = new NpcOgr("Ogr", 10, 3, 2);
+        ork = new NpcOgr("Ogr", 100, 20, 10);
         bat = new NpcOrk("Batman", 10, 3, 1);
         mordor.addMonster(ork);
         mordor.addMonster(bat);
     }
 
     @Test
-    public void testGetNpcStatistics() {
-        ork.setNpcHealth(100);
-        ork.setNpcStrenght(20);
-        ork.setNpcAgility(10);
-        String actualString = ork.getNpcStatistics();
+    public void testGetStatistics() {
+        String actualString = ork.getStatistics();
         String expectedString = "Name: Ogr\nRace: Ogr\nHealth: 100\nStrenght: 20\nAgility: 10";
         assertEquals("Statistics test", expectedString, actualString);
 

@@ -7,9 +7,8 @@ public class NpcCupido extends Npc {
     private static final String NPCRACE = "Cupido";
     
     public NpcCupido(String name, int npcHealth, int npcStrenght, int npcAgility) {
-        super(name, npcHealth, npcStrenght, npcAgility);
+        super(name, npcHealth, npcStrenght, npcAgility, NPCRACE);
         fightableInterface = new FightByMagicStickStrategy();
-        this.npcRace = NPCRACE;
     }
 
 }

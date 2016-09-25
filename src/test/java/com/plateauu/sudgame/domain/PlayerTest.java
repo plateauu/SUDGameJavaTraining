@@ -39,11 +39,9 @@ public class PlayerTest {
     
     @Test
     public void testGetPlayerStatistics(){
-        Player player = new Player("PLateauu", shire);
-        player.setPlayerHealth(100);
-        player.setPlayerStrenght(20);
-        player.setPlayerAgility(10);
-        String actualString = player.getPlayerStatistics();
+        Player player = new Player("PLateauu", shire, 20, 10);
+        player.setHealth(100);
+        String actualString = player.getStatistics();
         String expectedString = "Name: PLateauu\nHealth: 100\nStrenght: 20\nAgility: 10";   
         assertEquals("Statistics test", expectedString, actualString);
         

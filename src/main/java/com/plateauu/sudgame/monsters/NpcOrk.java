@@ -7,9 +7,8 @@ public class NpcOrk extends Npc {
     private static final String NPCRACE = "Ork";
 
     public NpcOrk(String name, int npcHealth, int npcStrenght, int npcAgility) {
-        super(name, npcHealth, npcStrenght, npcAgility);
+        super(name, npcHealth, npcStrenght, npcAgility, NPCRACE);
         fightableInterface = new FightByHandStrategy();
-        this.npcRace = NPCRACE;
     }
 
 }
