@@ -15,20 +15,21 @@ public class KillCommand implements Command {
         this.commandParser = commandParser;
     }
 
-    void attack() {
+    String attack() {
         boolean isPresent = player.ifMonsterNearby(name);
         Npc monster = player.prepareMonster(name);
 
         if (isPresent) {
             commandParser.beginCombat(monster, player);
+            return "Battle has bagun";
         } else {
-            System.out.println("There is no monster called  " + name + " to attack");
+            return "There is no monster called " + name + " to attack";
         }
     }
 
     @Override
-    public void execute() {
-        attack();
+    public String execute() {
+        return attack();
     }
 
 }

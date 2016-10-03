@@ -13,18 +13,18 @@ public class MoveCommand implements Command {
         this.player = player;
     }
 
-    public void move() {
+    public String move() {
         boolean hasMoved = player.move(direction);
         if (hasMoved) {
-            System.out.println(player.getLocationDescription());
+            return player.getLocationDescription();
         } else {
-            System.out.println("You can't go that way ");
+            return "You can't go that way ";
         }
     }
 
     @Override
-    public void execute() {
-        move();
+    public String execute() {
+        return move();
     }
     
     

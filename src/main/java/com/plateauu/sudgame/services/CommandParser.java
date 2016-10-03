@@ -90,7 +90,7 @@ public class CommandParser {
         }
 
         if (command != null) {
-            command.execute();
+            System.out.println(command.execute());
         }
     }
 
