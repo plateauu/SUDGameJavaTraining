@@ -6,6 +6,7 @@ import com.plateauu.sudgame.monsters.NpcOrk;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class PlayerTest {
 
@@ -28,7 +29,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testMove() {
+    public void testPlayerMove() {
         Player player = new Player("Plateauu", shire);
         Location expextedLocation = mordor;
         player.move(Direction.N);

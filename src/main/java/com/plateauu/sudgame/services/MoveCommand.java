@@ -14,19 +14,19 @@ public class MoveCommand implements Command {
     }
 
     public String move() {
+        String result = "";
         boolean hasMoved = player.move(direction);
         if (hasMoved) {
-            return player.getLocationDescription();
+            result = player.getLocationDescription();
         } else {
-            return "You can't go that way ";
+            result = "You can't go that way";
         }
+        return result;
     }
 
     @Override
     public String execute() {
         return move();
     }
-    
-    
 
 }

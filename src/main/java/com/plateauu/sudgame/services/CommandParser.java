@@ -70,15 +70,12 @@ public class CommandParser {
             case "kill":
             case "k":
                 if (commands.length > 1) {
-                    command = new KillCommand(commands[1], player, this);
+                    command = new KillCommand(commands[1], player);
                 } else {
                     showHelp();
                 }
                 break;
-            case "r":
-            case "run":
-                stopBattle();
-                break;
+
             case "exit":
                 break;
             case "stats":
@@ -101,22 +98,6 @@ public class CommandParser {
         return command;
     }
 
-    public void beginCombat(Npc monster, Player player) {
-        BattleStrategy bs = new AgilityBattleStrategy();
-
-        battle = new BattleThread(monster, player, bs);
-        battleThread = new Thread(battle);
-        battleThread.setName("Fight");
-        battleThread.start();
-    }
-
-    private void stopBattle() {
-        if (battleThread != null) {
-            battle.setDeactive();
-            System.out.println("You run out the battle");
-        }
-    }
-
     public void showStats(String[] commands, Player player) {
         if (commands.length == 1) {
             System.out.println(player.getStatistics());
@@ -125,5 +106,7 @@ public class CommandParser {
             System.out.println(singleMonsterStats);
         }
     }
+    
+    
 
 }

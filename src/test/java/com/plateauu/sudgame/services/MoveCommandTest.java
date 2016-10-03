@@ -33,14 +33,24 @@ public class MoveCommandTest {
     }
 
     @Test
-    public void MoveCommandTest() {
+    public void moveCommandTest() {
         Player player = new Player("PLateauu", shire);
         String[] command = {"north"};
 
         MoveCommand moveCommand = new MoveCommand(Direction.N, player);
         MoveCommand spyMoveCommand = Mockito.spy(moveCommand);
         spyMoveCommand.execute();
-        Mockito.verify(spyMoveCommand).execute();
+        Mockito.verify(spyMoveCommand).move();
+    }
+
+    @Test
+    public void getInfoIfThereIsNoLocationTest() {
+        Player player = new Player("PLateauu", shire);
+        MoveCommand moveCommand = new MoveCommand(Direction.E, player);
+        String result = moveCommand.execute();
+        assertEquals("You can't go that way", result);
+
+        
     }
 
 }

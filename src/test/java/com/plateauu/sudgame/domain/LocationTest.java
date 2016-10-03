@@ -40,11 +40,6 @@ public class LocationTest {
 		mordor.addMonster(bat);
 	}
 	
-	@Test
-	public void testGetShortDescription() {
-		String shortDescription = shire.getShortDescription();
-		assertEquals("shire", shortDescription);
-	}
 
 	@Test
 	public void testGetDescription() {
@@ -74,7 +69,7 @@ public class LocationTest {
 	}
 	
 	@Test
-	public void testExitsMap(){
+	public void checkIsThereCorrectExitsMap(){
 		Map<Direction, Location> map = mordor.getExtisLists();
 		Map<Direction, Location> expectedMap = new HashMap<>();
 		expectedMap.put(Direction.S, shire);

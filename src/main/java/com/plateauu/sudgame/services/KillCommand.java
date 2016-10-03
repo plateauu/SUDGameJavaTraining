@@ -1,5 +1,8 @@
 package com.plateauu.sudgame.services;
 
+import com.plateauu.sudgame.AgilityBattleStrategy;
+import com.plateauu.sudgame.BattleStrategy;
+import com.plateauu.sudgame.BattleThread;
 import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.monsters.Npc;
 
@@ -9,22 +12,33 @@ public class KillCommand implements Command {
     private Player player;
     private CommandParser commandParser;
 
-    public KillCommand(String name, Player player, CommandParser commandParser) {
+    public KillCommand(String name, Player player) {
         this.name = name;
         this.player = player;
-        this.commandParser = commandParser;
+ 
     }
 
     String attack() {
-        boolean isPresent = player.ifMonsterNearby(name);
-        Npc monster = player.prepareMonster(name);
+        String result = "";
+        boolean monsterIsPresent = player.ifMonsterNearby(name);
 
-        if (isPresent) {
-            commandParser.beginCombat(monster, player);
-            return "Battle has bagun";
+        if (monsterIsPresent) {
+            Npc monster = player.prepareMonster(name);
+            beginCombat(monster, player);
+            result = "Battle has bagun";
         } else {
-            return "There is no monster called " + name + " to attack";
+            result = "There is no monster called " + name + " to attack";
         }
+        return result;
+    }
+
+    public void beginCombat(Npc monster, Player player) {
+        BattleStrategy bs = new AgilityBattleStrategy();
+
+        Runnable battle = new BattleThread(monster, player, bs);
+        Thread battleThread = new Thread(battle);
+        battleThread.setName("Fight");
+        battleThread.start();
     }
 
     @Override

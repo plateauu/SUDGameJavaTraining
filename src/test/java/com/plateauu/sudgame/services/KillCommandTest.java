@@ -10,13 +10,9 @@ import com.plateauu.sudgame.domain.Location;
 import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.monsters.Npc;
 import com.plateauu.sudgame.monsters.NpcOgr;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.times;
 
@@ -42,20 +38,20 @@ public class KillCommandTest {
     }
 
     @Test
-    public void testKillCommand() {
+    public void attackIfThereIsEnemy() {
 
         String[] command = {"kill", "ork"};
 
-        Command killCommand = new KillCommand("ork", player, new CommandParser());
-        Command spyKillCommand = Mockito.spy(killCommand);
+        KillCommand killCommand = new KillCommand("ork", player);
+        KillCommand spyKillCommand = Mockito.spy(killCommand);
         spyKillCommand.execute();
-        Mockito.verify(spyKillCommand, times(1)).execute();
+        Mockito.verify(spyKillCommand, times(1)).attack();
 
     }
 
     @Test
-    public void testBadEnemy() {
-        Command killCommand = new KillCommand("ogr", player, new CommandParser());
+    public void ifNoEnemyThereTest() {
+        Command killCommand = new KillCommand("ogr", player);
 
         String expectedValue = "There is no monster called ogr to attack";
         String actualValue = killCommand.execute();
