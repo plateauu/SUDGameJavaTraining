@@ -85,6 +85,7 @@ public class CommandParser {
                 showStats(commands, player);
                 break;
             default:
+                command = new NullCommand();
                 showHelp();
                 break;
         }
