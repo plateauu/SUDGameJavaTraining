@@ -11,6 +11,10 @@ import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.monsters.Npc;
 
 public class CommandParser {
+
+    private Thread battleThread = null;
+    private BattleThread battle = null;
+
     private final static String HELP = " "
             + "\n Welcome to SUD GAME v.0.1"
             + "\n Expected parameters: "
@@ -22,13 +26,10 @@ public class CommandParser {
             + "\n r (run): run away from the battlefield"
             + "\n stats: shows player's statistics"
             + "\n stats [monster_name]: shows monster's info";
+
     private static void showHelp() {
         System.out.println(CommandParser.HELP);
     }
-
-    private Thread battleThread = null;
-    private BattleThread battle = null;
-
 
     public void actionCommander(Player player, Scanner scan) {
 
@@ -45,29 +46,31 @@ public class CommandParser {
     }
 
     public void actOnCommand(String[] commands, Player player) throws InterruptedException {
+        Command command = null;
+
         switch (commands[0]) {
             case "n":
             case "north":
-                move(Direction.N, player);
+                command = new MoveCommand(Direction.N, player);
                 break;
             case "s":
             case "south":
-                move(Direction.S, player);
+                command = new MoveCommand(Direction.S, player);
                 break;
             case "e":
             case "east":
-                move(Direction.E, player);
+                command = new MoveCommand(Direction.E, player);
                 break;
             case "w":
             case "west":
-                move(Direction.W, player);
+                command = new MoveCommand(Direction.W, player);
                 break;
             case "a":
             case "attack":
             case "kill":
             case "k":
                 if (commands.length > 1) {
-                    attack(commands[1], player);
+                    command = new KillCommand(commands[1], player, this);
                 } else {
                     showHelp();
                 }
@@ -85,37 +88,9 @@ public class CommandParser {
                 showHelp();
                 break;
         }
-    }
 
-
-    void attack(String name, Player player) {
-        boolean isPresent = player.ifMonsterNearby(name);
-        Npc monster = player.prepareMonster(name);
-
-        
-
-        if (isPresent) {
-            beginCombat(monster, player);
-        } else {
-            System.out.println("There is no monster called  " + name + " to attack");
-        }
-    }
-
-    private void beginCombat(Npc monster, Player player) {
-        BattleStrategy bs = new AgilityBattleStrategy();
-        
-        battle = new BattleThread(monster, player, bs);
-        battleThread = new Thread(battle);
-        battleThread.setName("Fight");
-        battleThread.start();
-    }
-
-    void move(Direction direction, Player player) {
-        boolean hasMoved = player.move(direction);
-        if (hasMoved) {
-            System.out.println(player.getLocationDescription());
-        } else {
-            System.out.println("You can't go that way ");
+        if (command != null) {
+            command.execute();
         }
     }
 
@@ -125,6 +100,15 @@ public class CommandParser {
         return command;
     }
 
+    public void beginCombat(Npc monster, Player player) {
+        BattleStrategy bs = new AgilityBattleStrategy();
+
+        battle = new BattleThread(monster, player, bs);
+        battleThread = new Thread(battle);
+        battleThread.setName("Fight");
+        battleThread.start();
+    }
+
     private void stopBattle() {
         if (battleThread != null) {
             battle.setDeactive();
@@ -132,7 +116,7 @@ public class CommandParser {
         }
     }
 
-    private void showStats(String[] commands, Player player) {
+    public void showStats(String[] commands, Player player) {
         if (commands.length == 1) {
             System.out.println(player.getStatistics());
         } else {
