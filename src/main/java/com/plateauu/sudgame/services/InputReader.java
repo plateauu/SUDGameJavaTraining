@@ -18,7 +18,8 @@ public class InputReader {
     Player player;
 
     public InputReader(Scanner scan, Player player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.scan = scan;
+        this.player = player;
     }
 
     public void actionCommander(Player player, Scanner scan) {
