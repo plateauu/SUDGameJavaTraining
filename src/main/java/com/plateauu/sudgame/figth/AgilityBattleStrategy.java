@@ -1,10 +1,23 @@
-package com.plateauu.sudgame;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.plateauu.sudgame.figth;
 
-import com.plateauu.sudgame.BattleStrategy;
+import com.plateauu.sudgame.BattleThread;
 import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.monsters.Npc;
+import java.util.Random;
 
-public class ClassicBattleStrategy implements BattleStrategy {
+/**
+ *
+ * @author plateauu
+ */
+/*
+TODO: unit tests for: damageTaken, checkIsAlive, showHealth, calculateHitChance
+ */
+public class AgilityBattleStrategy implements BattleStrategy {
 
     private boolean playerHits = true;
     private BattleThread bt;
@@ -12,24 +25,32 @@ public class ClassicBattleStrategy implements BattleStrategy {
     @Override
     public void fight(Player player, Npc monster, Runnable thread) {
         bt = (BattleThread) thread;
-        int hitStrenght = 0;
         try {
             playerHits = true;
-            hitStrenght = player.calculateHitStrenght();
-            damagaTaken(monster, player, hitStrenght);
-            stopBattle(this.checkIsAlive(monster, player));
+            if (calculateHitChance(player, monster)) {
+                int hitStrenght = player.calculateHitStrenght();
+                damagaTaken(monster, player, hitStrenght);
+                stopBattle(this.checkIsAlive(monster, player));
+            } else {
+                System.out.println("You missed the " + monster.getName());
+            }
 
             playerHits = false;
-            hitStrenght = monster.calculateHitStrenght();
-            damagaTaken(monster, player, hitStrenght);
-            showHealth(player);
-            stopBattle(this.checkIsAlive(monster, player));
+            if (calculateHitChance(monster, player)) {
+                int hitStrenght = monster.calculateHitStrenght();
+                damagaTaken(monster, player, hitStrenght);
+                showHealth(player);
+                stopBattle(this.checkIsAlive(monster, player));
+            } else if (monster.isAlive()) {
+                System.out.println(monster.getName() + " missed");
+            }
 
             Thread.sleep(2000);
-            
+
         } catch (Exception e) {
-            System.out.println("Bang!");
+            System.out.println("Bang!!");
         }
+
     }
 
     public void damagaTaken(Npc monster, Player player, int hitStrenght) {
@@ -42,6 +63,7 @@ public class ClassicBattleStrategy implements BattleStrategy {
     }
 
     public void showHealth(Player player) {
+
         if (player.getHealth() > 0) {
             System.out.println(player.getName() + " Health: " + player.getHealth());
         }
@@ -74,4 +96,13 @@ public class ClassicBattleStrategy implements BattleStrategy {
         }
     }
 
+    private boolean calculateHitChance(Npc monster, Player player) {
+        int r = new Random().nextInt(20);
+        return (monster.getAgility() + r > player.getAgility());
+    }
+
+    private boolean calculateHitChance(Player player, Npc monster) {
+        int r = new Random().nextInt(40);
+        return (player.getAgility() + r > monster.getAgility());
+    }
 }

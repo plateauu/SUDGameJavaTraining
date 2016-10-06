@@ -1,7 +1,7 @@
 package com.plateauu.sudgame.services;
 
-import com.plateauu.sudgame.AgilityBattleStrategy;
-import com.plateauu.sudgame.BattleStrategy;
+import com.plateauu.sudgame.figth.AgilityBattleStrategy;
+import com.plateauu.sudgame.figth.BattleStrategy;
 import com.plateauu.sudgame.BattleThread;
 import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.monsters.Npc;
@@ -10,15 +10,14 @@ public class KillCommand implements Command {
 
     private String name;
     private Player player;
-    private CommandParser commandParser;
 
     public KillCommand(String name, Player player) {
         this.name = name;
         this.player = player;
  
     }
-
-    String attack() {
+    
+    public String attack() {
         String result = "";
         boolean monsterIsPresent = player.ifMonsterNearby(name);
 

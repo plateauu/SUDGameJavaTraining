@@ -6,17 +6,17 @@ import com.plateauu.sudgame.domain.FightableStrategy;
 public abstract class Npc {
 
     private final String npcName;
-    private final String npcRace;
+    private final Monsters npcRace;
     private final Statistics stats;
     FightableStrategy fightableInterface;
 
-    public Npc(String name, int health, int strenght, String race) {
+    public Npc(String name, int health, int strenght, Monsters race) {
         this.npcName = name;
         this.npcRace = race;
         stats = new Statistics(health, strenght, 10);
     }
 
-    public Npc(String name, int health, int strenght, int agility, String race) {
+    public Npc(String name, int health, int strenght, int agility, Monsters race) {
         this.npcName = name;
         this.npcRace = race;
         stats = new Statistics(health, strenght, agility);

@@ -1,5 +1,6 @@
 package com.plateauu.sudgame;
 
+import com.plateauu.sudgame.figth.BattleStrategy;
 import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.monsters.Npc;

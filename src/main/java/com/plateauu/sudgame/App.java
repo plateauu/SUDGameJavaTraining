@@ -3,8 +3,8 @@ package com.plateauu.sudgame;
 import com.plateauu.sudgame.repository.GameCreatorRepository;
 import java.util.Scanner;
 
-import com.plateauu.sudgame.services.CommandParser;
 import com.plateauu.sudgame.domain.Player;
+import com.plateauu.sudgame.services.InputReader;
 
 /*
  * SUD Game Tutorial
@@ -13,9 +13,8 @@ public class App {
 
     public static void main(String[] args) {
 
-        
         GameCreatorRepository game = new GameCreatorRepository();
-        CommandParser commandParser = new CommandParser();
+
 
         game.setStartLocation("Shire");
 
@@ -24,7 +23,8 @@ public class App {
         String scanName = scan.nextLine();
         Player player = new Player(scanName, game.getStartLocation(),10, 25);
 
-        commandParser.actionCommander(player, scan);
+        InputReader ir = new InputReader(scan, player);
+        ir.actionCommander(player, scan);
 
     }
 

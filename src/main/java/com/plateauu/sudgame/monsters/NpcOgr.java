@@ -4,10 +4,9 @@ import com.plateauu.sudgame.domain.FightBySwordStrategy;
 
 public class NpcOgr extends Npc {
 
-    private static final String NPCRACE = "Ogr";
 
     public NpcOgr(String name, int npcHealth, int npcStrenght, int npcAgility) {
-        super(name, npcHealth, npcStrenght, npcAgility, NPCRACE);
+        super(name, npcHealth, npcStrenght, npcAgility, Monsters.Ogr);
         fightableInterface = new FightBySwordStrategy();
     }
 }
