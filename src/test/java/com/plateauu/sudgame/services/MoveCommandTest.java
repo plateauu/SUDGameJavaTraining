@@ -8,10 +8,7 @@ package com.plateauu.sudgame.services;
 import com.plateauu.sudgame.domain.Direction;
 import com.plateauu.sudgame.domain.Location;
 import com.plateauu.sudgame.domain.Player;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Mockito;
@@ -35,7 +32,6 @@ public class MoveCommandTest {
     @Test
     public void moveCommandTest() {
         Player player = new Player("PLateauu", shire);
-        String[] command = {"north"};
 
         MoveCommand moveCommand = new MoveCommand(Direction.N, player);
         MoveCommand spyMoveCommand = Mockito.spy(moveCommand);

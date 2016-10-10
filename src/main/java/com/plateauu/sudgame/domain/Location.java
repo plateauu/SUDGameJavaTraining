@@ -15,12 +15,14 @@ public class Location {
     private final String longDescription;
     private final Map<Direction, Location> exits;
     private final List<Npc> monsters;
+    private final Map<String, String> locationItems;
 
     public Location(String shortDescription, String longDescription) {
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
         this.exits = new HashMap<>();
         this.monsters = new ArrayList<>();
+        this.locationItems = new HashMap<>();
     }
 
     public String getShortDescription() {
@@ -35,7 +37,7 @@ public class Location {
         return "Now, you are at: " + this.shortDescription + "\n"
                 + this.longDescription + "\n" + "Visible exits: "
                 + getExitString() + "\n" + "Encountered monsters: "
-                + getMonsterString();
+                + getMonsterString() + "\n" + "Items to see: " +getAllItemsString();
     }
 
     private String getExitString() {
@@ -43,7 +45,7 @@ public class Location {
         Collections.sort(locationsExits);
         return Joiner.on(", ").join(locationsExits);
     }
-    
+
     public String getMonsterString() {
         if (monsters.isEmpty()) {
             return "None";
@@ -117,15 +119,48 @@ public class Location {
     public Map<Direction, Location> getExtisLists() {
         return this.exits;
     }
-    
-    public String getSingleNpcStats(String name){
+
+    public String getSingleNpcStats(String name) {
         boolean monsterExists = this.isMonsterExists(name);
-        if(monsterExists){
+        if (monsterExists) {
             Npc monster = getMonster(name);
             return monster.getStatistics();
         } else {
             return "There is no one called " + name + " here";
         }
+    }
+
+    public void addLocationItem(String name, String itemDesprition) {
+        locationItems.put(name, itemDesprition);
+    }
+
+    public String getLocationItem(String item) {
+        boolean isExist = isItemExists(item);
+        String itemDescription = "";
+        if (isExist) {
+            for (String itemName : locationItems.keySet()) {
+                if (itemName.equalsIgnoreCase(item)) {
+                    itemDescription = locationItems.get(itemName);
+                }
+            }
+        }
+        return itemDescription;
+    }
+
+    public String getAllItemsString() {
+        List<String> itemList = new ArrayList<>(locationItems.keySet());
+        Collections.sort(itemList);
+        return Joiner.on(", ").join(itemList);
+    }
+
+    public boolean isItemExists(String item) {
+        boolean isItemExists = false;
+        for (String itemName : locationItems.keySet()) {
+            if (itemName.equalsIgnoreCase(item)) {
+                isItemExists = true;
+            }
+        }
+        return isItemExists;
     }
 
 }

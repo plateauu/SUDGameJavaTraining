@@ -37,6 +37,10 @@ public class CommandParser {
                 break;
             case "exit":
                 break;
+            case "l":
+            case "look":
+                command = new LookCommand(commands, player);
+                break;
             case "stats":
                 command = new ShowStatsCommand(commands, player);
                 break;

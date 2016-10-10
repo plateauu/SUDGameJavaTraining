@@ -8,7 +8,7 @@ import com.plateauu.sudgame.monsters.Npc;
 public class Player {
 
     private final String playerName;
-    private Location currentLocation;
+    public Location currentLocation;
     private FightableStrategy fightableInterface;
     private Statistics stats;
     private boolean isAlive;
@@ -101,6 +101,14 @@ public class Player {
     
     public boolean isAlive(){
         return stats.getHealth() > 0;
+    }
+
+    public boolean isItemNearby(String item) {
+        return this.currentLocation.isItemExists(item);
+    }
+
+    public String getItemNearby(String item) {
+        return this.currentLocation.getLocationItem(item);
     }
 
 }

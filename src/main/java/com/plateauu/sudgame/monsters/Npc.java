@@ -6,21 +6,21 @@ import com.plateauu.sudgame.domain.FightableStrategy;
 public abstract class Npc {
 
     private final String npcName;
+    String npcDescription;
     private final Monsters npcRace;
     private final Statistics stats;
     FightableStrategy fightableInterface;
 
-    public Npc(String name, int health, int strenght, Monsters race) {
+    Npc(String name, int health, int strenght, Monsters race) {
         this.npcName = name;
         this.npcRace = race;
         stats = new Statistics(health, strenght, 10);
     }
 
-    public Npc(String name, int health, int strenght, int agility, Monsters race) {
+    Npc(String name, int health, int strenght, int agility, Monsters race) {
         this.npcName = name;
         this.npcRace = race;
         stats = new Statistics(health, strenght, agility);
-
     }
 
     public String getName() {
@@ -43,6 +43,10 @@ public abstract class Npc {
         return stats.getAgility();
     }
 
+    public String getDescprition() {
+        return this.npcName + " (" + this.npcRace.toString() + ") - " + this.npcDescription;
+    }
+
     public int calculateHitStrenght() {
         return fightableInterface.fight(this.getStrenght(), this.npcName);
     }
@@ -50,7 +54,7 @@ public abstract class Npc {
     public void setWeapon(FightableStrategy chosenWeapon) {
         this.fightableInterface = chosenWeapon;
     }
-
+//todo add descprition
     public String getStatistics() {
         return "Name: " + this.npcName
                 + "\nRace: " + this.npcRace

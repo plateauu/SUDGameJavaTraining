@@ -33,11 +33,18 @@ public final class GameCreatorRepository {
 
         addGameNpc("Zygmund", 3, 2, 10, "Mordor", Monsters.Ogr);
         addGameNpc("Alfred", 20, 5, 5, "Mordor", Monsters.Ork);
+        addGameNpc("Stone", 10, 5, 5, "Mordor", Monsters.Cupido);
         addGameNpc("Cinkciarz", 20, 5, 10, "New York", Monsters.Golum);
         addGameNpc("Zenon", 20, 5, 1, "Mordor", Monsters.Cupido);
         addGameNpc("Max", 1, 1, 1, "Graceland", Monsters.Cupido);
         addGameNpc("Mini", 1, 1, 1, "Graceland", Monsters.Cupido);
         addGameNpc("Lenek", 1, 1, 1, "Graceland", Monsters.Cupido);
+        
+        
+        addLocationItem("Shire", "Oak", "Old Oak at the centre of the big, green forest");
+        addLocationItem("Shire", "Wooden House", "Old big place where hobbit lives");
+        addLocationItem("Mordor", "Stone", "Many of stones around the castle");
+        addLocationItem("Mordor", "Castle", "Castle with four towers and sauron's eye");
 
     }
 
@@ -84,7 +91,8 @@ public final class GameCreatorRepository {
         if (index != -1) {
             return gameLocations.get(index);
         } else {
-            return null;
+           return null;
+            
         }
     }
 
@@ -100,5 +108,10 @@ public final class GameCreatorRepository {
         if (getGameLocation(startLocation) != null && getGameLocation(endLocation) != null) {
             getGameLocation(startLocation).addLocation(direction, getGameLocation(endLocation));
         }
+    }
+
+    private void addLocationItem(String locationName, String itemName, String itemDescription ) {
+        Location location = getGameLocation(locationName);
+        location.addLocationItem(itemName, itemDescription);
     }
 }

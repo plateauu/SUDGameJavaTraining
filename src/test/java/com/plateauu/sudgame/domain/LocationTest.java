@@ -16,6 +16,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
 
 public class LocationTest {
 	
@@ -38,13 +45,14 @@ public class LocationTest {
 		mordor.addMonster(ork);
 		bat = new NpcOrk("Batman", 10, 3, 2);
 		mordor.addMonster(bat);
+                shire.addLocationItem("Tree", "Big Tree");
 	}
 	
 
 	@Test
 	public void testGetDescription() {
 		String actualDescription = shire.getDescription();
-		String excpectedDescription = "Now, you are at: shire\nlong description shire\nVisible exits: North, South\nEncountered monsters: None";
+		String excpectedDescription = "Now, you are at: shire\nlong description shire\nVisible exits: North, South\nEncountered monsters: None\nItems to see: Tree";
 		assertNotNull("Checking if this not null description", actualDescription);
 		assertEquals("compare string", excpectedDescription, actualDescription);
 	}
@@ -80,5 +88,6 @@ public class LocationTest {
 		assertThat(map, IsMapContaining.hasValue(shire));
 		
 	}
+        
 }
 

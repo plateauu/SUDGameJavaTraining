@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.plateauu.sudgame.services;
 
-/**
- *
- * @author plateauu
- */
 class HelpCommand implements Command {
 
     private final String HELP = " "
@@ -17,6 +9,7 @@ class HelpCommand implements Command {
             + "\n N (north): moves to north"
             + "\n S (south): moves to south"
             + "\n E (east): moves to east"
+            + "\n l (look): gets location's description"
             + "\n W (west): moves to west"
             + "\n k (kill) [monster_name]: attacks to [monster_name]"
             + "\n r (run): run away from the battlefield"

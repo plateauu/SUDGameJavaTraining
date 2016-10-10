@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.plateauu.sudgame.services;
 
 import com.plateauu.sudgame.domain.Direction;
@@ -16,10 +11,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.times;
 
-/**
- *
- * @author plateauu
- */
+
 public class KillCommandTest {
 
     private Location shire;
