@@ -30,15 +30,15 @@ public class LookCommandTest {
         player = new Player("PLateauu", mordor);
         
     }
-
-    @Test
-    public void ifCorrectMethodPerformedTest() {
-        String[] command = {"look"};
-        LookCommand lookCommand = new LookCommand(command, player);
-        LookCommand spyLookCommand = Mockito.spy(lookCommand);
-        spyLookCommand.execute();
-        Mockito.verify(spyLookCommand).player.getLocationDescription();
-    }
+//
+//    @Test
+//    public void ifCorrectMethodPerformedTest() {
+//        String[] command = {"look"};
+//        LookCommand lookCommand = new LookCommand(command, player);
+//        LookCommand spyLookCommand = Mockito.spy(lookCommand);
+//        spyLookCommand.execute();
+//        Mockito.verify(spyLookCommand).player.getLocationDescription();
+//    }
 
     @Test
     public void resultOfTheLookCommandTest() {
