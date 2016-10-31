@@ -14,7 +14,7 @@ public class MoveCommand implements Command {
     }
 
     public String move() {
-        String result = "";
+        String result;
         boolean hasMoved = player.move(direction);
         if (hasMoved) {
             result = player.getLocationDescription();

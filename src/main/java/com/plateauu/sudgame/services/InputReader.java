@@ -6,10 +6,10 @@
 package com.plateauu.sudgame.services;
 
 import com.plateauu.sudgame.domain.Player;
+
 import java.util.Scanner;
 
 /**
- *
  * @author plateauu
  */
 public class InputReader {

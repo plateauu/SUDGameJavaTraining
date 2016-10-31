@@ -25,29 +25,31 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.is;
 
 public class LocationTest {
-	
+
 	Location location;
 	Npc ork;
 	Npc bat;
 	Location mordor;
 	Location shire;
-        Location newyork;
+	Location newyork;
 
 	@Before
-	public void initTest(){
+	
+
+	public void initTest() {
 		shire = new Location("shire", "long description shire");
 		mordor = new Location("mordor", "long description mordor");
-                newyork = new Location("new york", "long description new york");
+		newyork = new Location("new york", "long description new york");
 		mordor.addLocation(Direction.S, shire);
 		shire.addLocation(Direction.N, mordor);
-                shire.addLocation(Direction.S, newyork);
+		shire.addLocation(Direction.S, newyork);
 		ork = new NpcOgr("Ork", 10, 3, 2);
 		mordor.addMonster(ork);
 		bat = new NpcOrk("Batman", 10, 3, 2);
 		mordor.addMonster(bat);
-                shire.addLocationItem("Tree", "Big Tree");
+		shire.addLocationItem("Tree", "Big Tree");
 	}
-	
+
 
 	@Test
 	public void testGetDescription() {
@@ -60,24 +62,24 @@ public class LocationTest {
 	@Test
 	public void testIsDescription() {
 		String description = shire.getDescription();
-		assertTrue("Checking if description is correct",description.contains("shire"));
+		assertTrue("Checking if description is correct", description.contains("shire"));
 	}
 
 	@Test
 	public void testIsMonsterExists() {
 		String expectedName = "Ork";
-		assertTrue("isMontersExits test",mordor.isMonsterExists(expectedName));
+		assertTrue("isMontersExits test", mordor.isMonsterExists(expectedName));
 
 	}
 
 	@Test
-	public void testGetMonsterString(){
+	public void testGetMonsterString() {
 		assertEquals("Monster test's", "Ork, Batman", mordor.getMonsterString());
-		
+
 	}
-	
+
 	@Test
-	public void checkIsThereCorrectExitsMap(){
+	public void checkIsThereCorrectExitsMap() {
 		Map<Direction, Location> map = mordor.getExtisLists();
 		Map<Direction, Location> expectedMap = new HashMap<>();
 		expectedMap.put(Direction.S, shire);
@@ -86,8 +88,9 @@ public class LocationTest {
 		assertThat(map, IsMapContaining.hasEntry(Direction.S, shire));
 		assertThat(map, IsMapContaining.hasKey(Direction.S));
 		assertThat(map, IsMapContaining.hasValue(shire));
-		
+
 	}
-        
+
 }
+
 

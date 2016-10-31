@@ -32,4 +32,5 @@ public class BattleThread implements Runnable {
         this.isActive = false;
     }
 
+
 }

@@ -11,10 +11,10 @@ public abstract class Npc {
     private final Statistics stats;
     FightableStrategy fightableInterface;
 
-    Npc(String name, int health, int strenght, Monsters race) {
+    Npc(String name, int health, int strength, Monsters race) {
         this.npcName = name;
         this.npcRace = race;
-        stats = new Statistics(health, strenght, 10);
+        stats = new Statistics(health, strength, 10);
     }
 
     Npc(String name, int health, int strenght, int agility, Monsters race) {
@@ -35,7 +35,7 @@ public abstract class Npc {
         stats.setHealth(npcHealth);
     }
 
-    public int getStrenght() {
+    public int getStrength() {
         return stats.getStrenght();
     }
 
@@ -48,13 +48,14 @@ public abstract class Npc {
     }
 
     public int calculateHitStrenght() {
-        return fightableInterface.fight(this.getStrenght(), this.npcName);
+        return fightableInterface.fight(this.getStrength(), this.npcName);
     }
 
     public void setWeapon(FightableStrategy chosenWeapon) {
         this.fightableInterface = chosenWeapon;
     }
-//todo add descprition
+
+    //todo add descprition
     public String getStatistics() {
         return "Name: " + this.npcName
                 + "\nRace: " + this.npcRace
