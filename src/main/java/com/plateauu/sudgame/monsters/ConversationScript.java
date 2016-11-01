@@ -13,7 +13,6 @@ public class ConversationScript {
     public static final int USER = 2;
 
 
-
     private Map<Integer, String> conversationsSubjects;
     private Map<String, Map<Integer, String>> responseSubject;
     private String actualSubject;
@@ -60,7 +59,7 @@ public class ConversationScript {
 
 
         Map<Integer, String> peopleConversation = new HashMap<>();
-        peopleConversation.put(0, "People Are Awsome");
+        peopleConversation.put(0, "People Are Awesome");
         peopleConversation.put(1, "Don't like people");
         peopleConversation.put(2, "I would like to kill them!!!");
 
@@ -77,7 +76,6 @@ public class ConversationScript {
 
         Map<Integer, String> exitConversation = new HashMap<>();
         exitConversation.put(0, "Live in peace!");
-
 
         responseSubject = new HashMap<>();
         responseSubject.put("People", peopleConversation);
@@ -128,7 +126,7 @@ public class ConversationScript {
         boolean ifExists = conversationSubjectExists(actualSubject);
         if (ifExists) {
             Map<Integer, String> actualConversation = responseSubject.get(actualSubject);
-            response = monster.getName() + " said:  " + actualConversation.get(conversationIndex) + "\n";
+            response = monster.getName() + " said: " + actualConversation.get(conversationIndex) + "\n";
             conversationIndex++;
 
         } else {
@@ -149,6 +147,18 @@ public class ConversationScript {
 
     public void setConversationIndex(int conversationIndex) {
         this.conversationIndex = conversationIndex;
+    }
+
+    void setConversationLimit(int conversationLimit) {
+        this.conversationLimit = conversationLimit;
+    }
+
+    void setConversationExitInt(int conversationExitInt) {
+        this.conversationExitInt = conversationExitInt;
+    }
+
+    Map<String, Map<Integer, String>> getResponseSubject() {
+        return responseSubject;
     }
 }
 
