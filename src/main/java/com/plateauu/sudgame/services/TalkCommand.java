@@ -16,12 +16,13 @@ class TalkCommand implements Command {
 
     private final String[] commands;
     private final Player player;
+    private final Scanner scan;
 
 
-
-    TalkCommand(String[] commands, Player player) {
+    TalkCommand(String[] commands, Player player, Scanner scan) {
         this.commands = commands;
         this.player = player;
+        this.scan = scan;
 
     }
 
@@ -31,18 +32,19 @@ class TalkCommand implements Command {
     }
 
     private String talkToMonster() {
-        String responseFromMonster;
+        String responseFromMonster = "";
 
         if (isParamTransferred()) {
             String monsterName = commands[1];
             if (player.ifMonsterNearby(monsterName)) {
 
                 Npc monster = player.prepareMonster(monsterName);
+                if (monster.isTalkative()) {
+                    makeConversation(monster);
 
-                makeConversation(monster);
-
-                responseFromMonster = monster.getName() + "> Don't wanna talk you! Looser!";
-
+                } else {
+                    responseFromMonster = monster.getName() + " said: Don't wanna talk you! Looser!";
+                }
             } else {
                 responseFromMonster = "There is none called " + monsterName;
             }
@@ -53,23 +55,20 @@ class TalkCommand implements Command {
         return responseFromMonster;
     }
 
-    private void makeConversation(Npc monster) {
-        Scanner scanner = new Scanner(System.in);
-        int playerInput;
+    void makeConversation(Npc monster) {
+        int playerInput = 0;
         int prevInput = 0;
 
         ConversationScript cs = monster.getConversationScript();
         cs.setConversationIndex(0);
 
-        while (cs.hasNextAnswer()) {
+        while (cs.hasNextAnswer() && playerInput != cs.getConversationExitInt()) {
 
             try {
 
                 System.out.println(cs.getTopics());
-
-                System.out.print(monster.getName() + "> ");
-
-                playerInput = scanner.nextInt();
+                System.out.print(monster.getName() + " conversation:> ");
+                playerInput = scan.nextInt();
 
                 if (prevInput != playerInput) {
                     cs.setConversationIndex(0);
@@ -79,25 +78,21 @@ class TalkCommand implements Command {
                     cs.setActualSubject(playerInput);
                     System.out.println(cs.getResponse(monster));
                 } else {
-                    System.out.println(monster.getName() + "> Wrong option.\n");
+                    System.out.println(monster.getName() + " conversation:> Wrong option.\n");
                 }
 
                 prevInput = playerInput;
-
                 Thread.sleep(1000);
 
             } catch (InputMismatchException e) {
                 System.out.println("You typed wrong number. Pick the number!");
-                scanner.next();
+                scan.next();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-
         }
 
     }
-
 
     @Override
     public String execute() {

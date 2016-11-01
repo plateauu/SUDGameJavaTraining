@@ -13,11 +13,13 @@ public class ConversationScript {
     public static final int USER = 2;
 
 
+
     private Map<Integer, String> conversationsSubjects;
     private Map<String, Map<Integer, String>> responseSubject;
     private String actualSubject;
     private int conversationIndex;
     private int conversationLimit;
+    private int conversationExitInt;
 
 
     public ConversationScript(int version) {
@@ -45,6 +47,8 @@ public class ConversationScript {
 
         actualSubject = "Nothing";
         conversationIndex = 0;
+        conversationLimit = 1;
+        conversationExitInt = 2;
     }
 
     private void defaultConfig() {
@@ -72,9 +76,9 @@ public class ConversationScript {
         placeConversation.put(2, "I would like to live this place");
 
         Map<Integer, String> exitConversation = new HashMap<>();
-        exitConversation.put(0, "I love this place");
-        
-        
+        exitConversation.put(0, "Live in peace!");
+
+
         responseSubject = new HashMap<>();
         responseSubject.put("People", peopleConversation);
         responseSubject.put("Fight", fightConversation);
@@ -84,6 +88,7 @@ public class ConversationScript {
         actualSubject = "Nothing";
         conversationIndex = 0;
         conversationLimit = Math.min(Math.min(fightConversation.size(), placeConversation.size()), peopleConversation.size());
+        conversationExitInt = 4;
 
     }
 
@@ -96,14 +101,19 @@ public class ConversationScript {
     }
 
 
+    public int getConversationExitInt() {
+        return conversationExitInt;
+    }
+
     public Map<Integer, String> getConversationsSubjects() {
         return conversationsSubjects;
     }
 
     public String getTopics() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Select subject of the conversation:\n");
+
         for (Map.Entry subject : conversationsSubjects.entrySet()) {
-            sb.append("Select subject of the conversation:\n");
             sb.append(subject.getKey() + ". ");
             sb.append(subject.getValue() + "\n");
         }
@@ -118,7 +128,7 @@ public class ConversationScript {
         boolean ifExists = conversationSubjectExists(actualSubject);
         if (ifExists) {
             Map<Integer, String> actualConversation = responseSubject.get(actualSubject);
-            response = monster.getName() + " >" + actualConversation.get(conversationIndex) + "\n";
+            response = monster.getName() + " said:  " + actualConversation.get(conversationIndex) + "\n";
             conversationIndex++;
 
         } else {
