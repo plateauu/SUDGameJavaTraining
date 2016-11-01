@@ -2,45 +2,66 @@ package com.plateauu.sudgame.monsters;
 
 import com.plateauu.sudgame.Statistics;
 import com.plateauu.sudgame.domain.FightableStrategy;
+import com.plateauu.sudgame.domain.Player;
 
 public abstract class Npc {
 
     private final String npcName;
-    String npcDescription;
     private final Monsters npcRace;
-    private final Statistics stats;
+    private final Statistics npcStats;
+    String npcDescription;
+
     FightableStrategy fightableInterface;
+    private ConversationScript conversationScript;
+
+    Npc(String name, int health, int strength, Monsters race, ConversationScript conversationScript) {
+        this.npcName = name;
+        this.npcRace = race;
+        this.conversationScript = conversationScript;
+        npcStats = new Statistics(health, strength, 10);
+    }
 
     Npc(String name, int health, int strength, Monsters race) {
         this.npcName = name;
         this.npcRace = race;
-        stats = new Statistics(health, strength, 10);
+        conversationScript = new ConversationScript(conversationScript.DEFAULT);
+        npcStats = new Statistics(health, strength, 10);
+
+    }
+
+    Npc(String name, int health, int strenght, int agility, Monsters race, ConversationScript conversationScript) {
+        this.npcName = name;
+        this.npcRace = race;
+        this.conversationScript = conversationScript;
+        npcStats = new Statistics(health, strenght, agility);
     }
 
     Npc(String name, int health, int strenght, int agility, Monsters race) {
         this.npcName = name;
         this.npcRace = race;
-        stats = new Statistics(health, strenght, agility);
+        this.conversationScript = new ConversationScript(conversationScript.DEFAULT);
+        npcStats = new Statistics(health, strenght, agility);
     }
+
 
     public String getName() {
         return npcName;
     }
 
     public int getHealth() {
-        return stats.getHealth();
+        return npcStats.getHealth();
     }
 
     public void setHealth(int npcHealth) {
-        stats.setHealth(npcHealth);
+        npcStats.setHealth(npcHealth);
     }
 
     public int getStrength() {
-        return stats.getStrenght();
+        return npcStats.getStrenght();
     }
 
     public int getAgility() {
-        return stats.getAgility();
+        return npcStats.getAgility();
     }
 
     public String getDescprition() {
@@ -59,17 +80,17 @@ public abstract class Npc {
     public String getStatistics() {
         return "Name: " + this.npcName
                 + "\nRace: " + this.npcRace
-                + "\n" + stats.toString();
+                + "\n" + npcStats.toString();
     }
 
-    public static Npc createMonster(Monsters monster, String name, int npcHealth, int npcStrenght, int npcAgility) {
+    public static Npc createMonster(Monsters monster, String name, int npcHealth, int npcStrenght, int npcAgility, ConversationScript cs) {
         switch (monster) {
             case Ogr:
-                return new NpcOgr(name, npcHealth, npcStrenght, npcAgility);
+                return new NpcOgr(name, npcHealth, npcStrenght, npcAgility, cs);
             case Ork:
-                return new NpcOrk(name, npcHealth, npcStrenght, npcAgility);
+                return new NpcOrk(name, npcHealth, npcStrenght, npcAgility, cs);
             case Cupido:
-                return new NpcCupido(name, npcHealth, npcStrenght, npcAgility);
+                return new NpcCupido(name, npcHealth, npcStrenght, npcAgility, cs);
             default:
                 return null;
         }
@@ -81,7 +102,12 @@ public abstract class Npc {
     }
 
     public boolean isAlive() {
-        return stats.getHealth() > 0;
+        return npcStats.getHealth() > 0;
     }
 
+    public abstract String makeConversation(Player player);
+
+    public ConversationScript getConversationScript() {
+        return conversationScript;
+    }
 }

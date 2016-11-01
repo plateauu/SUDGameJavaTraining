@@ -8,7 +8,7 @@ import com.plateauu.sudgame.monsters.Npc;
 public class Player {
 
     private final String playerName;
-    public Location currentLocation;
+    private Location currentLocation;
     private FightableStrategy fightableInterface;
     private Statistics stats;
     private boolean isAlive;
@@ -31,7 +31,7 @@ public class Player {
         welcomeMessage();
     }
 
-    public void welcomeMessage() {
+    private void welcomeMessage() {
         System.out.println("Welcome, " + this.playerName);
         System.out.println(currentLocation.getDescription());
     }
@@ -44,7 +44,7 @@ public class Player {
         return playerName;
     }
 
-    public int getStrenght() {
+    private int getStrenght() {
         return stats.getStrenght();
     }
 
@@ -75,7 +75,6 @@ public class Player {
     public String getStatistics() {
         return "Name: " + this.playerName + "\n" + stats.toString();
     }
-
 
     public void setWeapon(FightableStrategy fightinhWay) {
         this.fightableInterface = fightinhWay;

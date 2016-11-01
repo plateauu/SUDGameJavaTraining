@@ -3,6 +3,7 @@ package com.plateauu.sudgame.services;
 import com.plateauu.sudgame.domain.Direction;
 import com.plateauu.sudgame.domain.Location;
 import com.plateauu.sudgame.domain.Player;
+import com.plateauu.sudgame.monsters.ConversationScript;
 import com.plateauu.sudgame.monsters.Npc;
 import com.plateauu.sudgame.monsters.NpcCupido;
 import com.plateauu.sudgame.monsters.NpcOgr;
