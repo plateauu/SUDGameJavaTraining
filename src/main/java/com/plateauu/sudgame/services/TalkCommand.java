@@ -4,6 +4,7 @@ import com.plateauu.sudgame.domain.Player;
 import com.plateauu.sudgame.monsters.ConversationScript;
 import com.plateauu.sudgame.monsters.Npc;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -15,13 +16,13 @@ class TalkCommand implements Command {
 
     private final String[] commands;
     private final Player player;
-    private Scanner scan;
 
 
-    TalkCommand(String[] commands, Player player, Scanner scan) {
+
+    TalkCommand(String[] commands, Player player) {
         this.commands = commands;
         this.player = player;
-        this.scan = scan;
+
     }
 
     private boolean isParamTransferred() {
@@ -37,9 +38,10 @@ class TalkCommand implements Command {
             if (player.ifMonsterNearby(monsterName)) {
 
                 Npc monster = player.prepareMonster(monsterName);
-                String response = makeConversation(monster);
 
-                responseFromMonster = "Don't wanna talk you! Looser!";
+                makeConversation(monster);
+
+                responseFromMonster = monster.getName() + "> Don't wanna talk you! Looser!";
 
             } else {
                 responseFromMonster = "There is none called " + monsterName;
@@ -51,28 +53,49 @@ class TalkCommand implements Command {
         return responseFromMonster;
     }
 
-    private String makeConversation(Npc monster) {
-        String response = "";
+    private void makeConversation(Npc monster) {
+        Scanner scanner = new Scanner(System.in);
         int playerInput;
+        int prevInput = 0;
 
         ConversationScript cs = monster.getConversationScript();
+        cs.setConversationIndex(0);
 
-        System.out.println(cs.getTopics());
+        while (cs.hasNextAnswer()) {
 
-        playerInput = scan.nextInt();
-        cs.setActualSubject(playerInput);
+            try {
 
-        System.out.println(cs.get);
+                System.out.println(cs.getTopics());
+
+                System.out.print(monster.getName() + "> ");
+
+                playerInput = scanner.nextInt();
+
+                if (prevInput != playerInput) {
+                    cs.setConversationIndex(0);
+                }
+
+                if (cs.getConversationsSubjects().keySet().contains(playerInput)) {
+                    cs.setActualSubject(playerInput);
+                    System.out.println(cs.getResponse(monster));
+                } else {
+                    System.out.println(monster.getName() + "> Wrong option.\n");
+                }
+
+                prevInput = playerInput;
+
+                Thread.sleep(1000);
+
+            } catch (InputMismatchException e) {
+                System.out.println("You typed wrong number. Pick the number!");
+                scanner.next();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
 
+        }
 
-
-
-        //
-
-
-
-        return response;
     }
 
 
