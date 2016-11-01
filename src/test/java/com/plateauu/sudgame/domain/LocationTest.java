@@ -4,6 +4,7 @@ package com.plateauu.sudgame.domain;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.plateauu.sudgame.monsters.ConversationScript;
 import org.hamcrest.collection.IsMapContaining;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,9 +44,10 @@ public class LocationTest {
 		mordor.addLocation(Direction.S, shire);
 		shire.addLocation(Direction.N, mordor);
 		shire.addLocation(Direction.S, newyork);
-		ork = new NpcOgr("Ork", 10, 3, 2);
+		ConversationScript cs = new ConversationScript(ConversationScript.DEFAULT);
+		ork = new NpcOgr("Ork", 10, 3, 2, cs);
 		mordor.addMonster(ork);
-		bat = new NpcOrk("Batman", 10, 3, 2);
+		bat = new NpcOrk("Batman", 10, 3, 2, cs);
 		mordor.addMonster(bat);
 		shire.addLocationItem("Tree", "Big Tree");
 	}

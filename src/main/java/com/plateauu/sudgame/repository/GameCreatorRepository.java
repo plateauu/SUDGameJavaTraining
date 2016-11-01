@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.plateauu.sudgame.domain.Direction;
 import com.plateauu.sudgame.domain.Location;
+import com.plateauu.sudgame.monsters.ConversationScript;
 import com.plateauu.sudgame.monsters.Monsters;
 import com.plateauu.sudgame.monsters.Npc;
 
@@ -17,6 +18,8 @@ public final class GameCreatorRepository {
     public GameCreatorRepository() {
         this.gameLocations = new ArrayList<>();
         this.gameNpc = new ArrayList<>();
+
+        ConversationScript exampleConversationScript = new ConversationScript(ConversationScript.DEFAULT);
 
         addGameLocation("Shire", "Beautful forest, a land where sun never setting down");
         addGameLocation("Mordor", "It is a land where dark lord rule since ever" + "\n"
@@ -35,10 +38,10 @@ public final class GameCreatorRepository {
         addGameNpc("Alfred", 20, 5, 5, "Mordor", Monsters.Ork);
         addGameNpc("Stone", 10, 5, 5, "Mordor", Monsters.Cupido);
         addGameNpc("Cinkciarz", 20, 5, 10, "New York", Monsters.Golum);
-        addGameNpc("Zenon", 20, 5, 1, "Mordor", Monsters.Cupido);
-        addGameNpc("Max", 1, 1, 1, "Graceland", Monsters.Cupido);
-        addGameNpc("Mini", 1, 1, 1, "Graceland", Monsters.Cupido);
-        addGameNpc("Lenek", 1, 1, 1, "Graceland", Monsters.Cupido);
+        addGameNpc("Zenon", 20, 5, 1, "Mordor", Monsters.Cupido, exampleConversationScript);
+        addGameNpc("Max", 1, 1, 1, "Graceland", Monsters.Cupido, exampleConversationScript);
+        addGameNpc("Mini", 1, 1, 1, "Graceland", Monsters.Cupido, exampleConversationScript);
+        addGameNpc("Lenek", 1, 1, 1, "Graceland", Monsters.Cupido, exampleConversationScript);
         
         
         addLocationItem("Shire", "Oak", "Old Oak at the centre of the big, green forest");
@@ -48,11 +51,11 @@ public final class GameCreatorRepository {
 
     }
 
-    public List<Location> getGameLocations() {
+    List<Location> getGameLocations() {
         return gameLocations;
     }
 
-    public List<Npc> getGameNpc() {
+    List<Npc> getGameNpc() {
         return gameNpc;
     }
 
@@ -70,11 +73,11 @@ public final class GameCreatorRepository {
         }
     }
 
-    public void addGameLocation(String name, String description) {
+    void addGameLocation(String name, String description) {
         gameLocations.add(new Location(name, description));
     }
 
-    public int getGameLocationIndex(String name) {
+    private int getGameLocationIndex(String name) {
         int indexOfLocation = - 1;
         for (Location location : this.gameLocations) {
             if (location.getShortDescription().equals(name)) {
@@ -86,7 +89,7 @@ public final class GameCreatorRepository {
         return indexOfLocation;
     }
 
-    public Location getGameLocation(String name) {
+    Location getGameLocation(String name) {
         int index = getGameLocationIndex(name);
         if (index != -1) {
             return gameLocations.get(index);
@@ -96,8 +99,18 @@ public final class GameCreatorRepository {
         }
     }
 
-    public void addGameNpc(String name, int npcHealth, int npcStrenght, int npcAgility, String location, Monsters monsterType) {
-        Npc monster = Npc.createMonster(monsterType, name, npcHealth, npcStrenght, npcAgility);
+
+
+    void addGameNpc(String name, int npcHealth, int npcStrenght, int npcAgility, String location, Monsters monsterType, ConversationScript conversationScript) {
+        Npc monster = Npc.createMonster(monsterType, name, npcHealth, npcStrenght, npcAgility, conversationScript);
+        if (monster != null) {
+            gameNpc.add(monster);
+            getGameLocation(location).addMonster(monster);
+        }
+    }
+
+    void addGameNpc(String name, int npcHealth, int npcStrenght, int npcAgility, String location, Monsters monsterType) {
+        Npc monster = Npc.createMonster(monsterType, name, npcHealth, npcStrenght, npcAgility, new ConversationScript(ConversationScript.DEFAULT));
         if (monster != null) {
             gameNpc.add(monster);
             getGameLocation(location).addMonster(monster);
@@ -112,6 +125,8 @@ public final class GameCreatorRepository {
 
     private void addLocationItem(String locationName, String itemName, String itemDescription ) {
         Location location = getGameLocation(locationName);
-        location.addLocationItem(itemName, itemDescription);
+        if (location != null) {
+            location.addLocationItem(itemName, itemDescription);
+        }
     }
 }

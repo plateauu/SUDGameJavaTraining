@@ -29,7 +29,7 @@ public class InputReader {
             try {
                 command = readPlayerInput(scan).toLowerCase();
                 String commands[] = command.split(" ");
-                commandParser.actOnCommand(commands, player);
+                commandParser.actOnCommand(commands, player, scan);
             } catch (InterruptedException e) {
             }
         }

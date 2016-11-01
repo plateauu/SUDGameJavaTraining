@@ -3,10 +3,12 @@ package com.plateauu.sudgame.services;
 import com.plateauu.sudgame.domain.Direction;
 import com.plateauu.sudgame.domain.Player;
 
-public class CommandParser {
+import java.util.Scanner;
 
-    public void actOnCommand(String[] commands, Player player) throws InterruptedException {
-        Command command = null;
+class CommandParser {
+
+    void actOnCommand(String[] commands, Player player, Scanner scanner) throws InterruptedException {
+        Command command = new NullCommand();
 
         switch (commands[0]) {
             case "n":
@@ -44,14 +46,16 @@ public class CommandParser {
             case "stats":
                 command = new ShowStatsCommand(commands, player);
                 break;
+            case "talk":
+            case "t":
+                command = new TalkCommand(commands, player, scanner);
+                break;
             default:
                 command = new HelpCommand();
                 break;
         }
 
-        if (command != null) {
-            System.out.println(command.execute());
-        }
+        System.out.println(command.execute());
     }
 
 }

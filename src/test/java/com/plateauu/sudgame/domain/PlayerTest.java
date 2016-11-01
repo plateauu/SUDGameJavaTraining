@@ -1,5 +1,6 @@
 package com.plateauu.sudgame.domain;
 
+import com.plateauu.sudgame.monsters.ConversationScript;
 import com.plateauu.sudgame.monsters.Npc;
 import com.plateauu.sudgame.monsters.NpcOgr;
 import com.plateauu.sudgame.monsters.NpcOrk;
@@ -22,8 +23,9 @@ public class PlayerTest {
         mordor = new Location("mordor", "long description mordor");
         shire.addLocation(Direction.N, mordor);
         mordor.addLocation(Direction.S, shire);
-        ork = new NpcOgr("Ork", 10, 3, 2);
-        bat = new NpcOrk("Batman", 10, 3, 1);
+        ConversationScript cs = new ConversationScript(ConversationScript.DEFAULT);
+        ork = new NpcOgr("Ork", 10, 3, 2, cs);
+        bat = new NpcOrk("Batman", 10, 3, 1, cs);
         mordor.addMonster(ork);
         mordor.addMonster(bat);
     }

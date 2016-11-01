@@ -1,5 +1,6 @@
 package com.plateauu.sudgame.repository;
 
+import com.plateauu.sudgame.monsters.ConversationScript;
 import com.plateauu.sudgame.repository.GameCreatorRepository;
 import static org.junit.Assert.*;
 
@@ -20,7 +21,8 @@ public class GameCreatorTest {
     @Before
     public void initTest() {
         game = new GameCreatorRepository();
-        game.addGameNpc("Marcin", 13, 3, 2, "Shire", Monsters.Ork);
+        ConversationScript cs = new ConversationScript(ConversationScript.DEFAULT);
+        game.addGameNpc("Marcin", 13, 3, 2, "Shire", Monsters.Ork, cs);
         game.addExits("Shire", "New York", Direction.U);
     }
 

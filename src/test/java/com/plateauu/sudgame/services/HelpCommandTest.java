@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
-public class showHelpTest {
+public class HelpCommandTest {
     
     @Test
     public void ifHelpHasCome() {
