@@ -13,12 +13,14 @@ public abstract class Npc {
 
     FightableStrategy fightableInterface;
     private ConversationScript conversationScript;
+    boolean isTalkative;
 
     Npc(String name, int health, int strength, Monsters race, ConversationScript conversationScript) {
         this.npcName = name;
         this.npcRace = race;
         this.conversationScript = conversationScript;
         npcStats = new Statistics(health, strength, 10);
+        isTalkative = true;
     }
 
     Npc(String name, int health, int strength, Monsters race) {
@@ -26,7 +28,7 @@ public abstract class Npc {
         this.npcRace = race;
         conversationScript = new ConversationScript(conversationScript.DEFAULT);
         npcStats = new Statistics(health, strength, 10);
-
+        isTalkative = true;
     }
 
     Npc(String name, int health, int strenght, int agility, Monsters race, ConversationScript conversationScript) {
@@ -34,6 +36,7 @@ public abstract class Npc {
         this.npcRace = race;
         this.conversationScript = conversationScript;
         npcStats = new Statistics(health, strenght, agility);
+        isTalkative = true;
     }
 
     Npc(String name, int health, int strenght, int agility, Monsters race) {
@@ -41,7 +44,26 @@ public abstract class Npc {
         this.npcRace = race;
         this.conversationScript = new ConversationScript(conversationScript.DEFAULT);
         npcStats = new Statistics(health, strenght, agility);
+        isTalkative = true;
     }
+
+
+    Npc(String name, int health, int strenght, int agility, Monsters race, ConversationScript conversationScript, boolean isTalkative) {
+        this.npcName = name;
+        this.npcRace = race;
+        this.conversationScript = conversationScript;
+        npcStats = new Statistics(health, strenght, agility);
+        this.isTalkative = isTalkative;
+    }
+
+    Npc(String name, int health, int strenght, int agility, Monsters race, boolean isTalkative) {
+        this.npcName = name;
+        this.npcRace = race;
+        this.conversationScript = new ConversationScript(conversationScript.DEFAULT);
+        npcStats = new Statistics(health, strenght, agility);
+        this.isTalkative = isTalkative;
+    }
+
 
 
     public String getName() {
@@ -110,4 +132,12 @@ public abstract class Npc {
     public ConversationScript getConversationScript() {
         return conversationScript;
     }
+
+    public boolean isTalkative() {
+        return isTalkative;
+    }
+
+
+
+
 }

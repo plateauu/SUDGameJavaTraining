@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 class CommandParser {
 
-    void actOnCommand(String[] commands, Player player, Scanner scanner) throws InterruptedException {
+    void actOnCommand(String[] commands, Player player, Scanner scan) throws InterruptedException {
         Command command = new NullCommand();
 
         switch (commands[0]) {
@@ -48,10 +48,14 @@ class CommandParser {
                 break;
             case "talk":
             case "t":
-                command = new TalkCommand(commands, player, scanner);
+                command = new TalkCommand(commands, player, scan);
+                break;
+
+            case "help":
+            case "h":
+                command = new HelpCommand();
                 break;
             default:
-                command = new HelpCommand();
                 break;
         }
 
