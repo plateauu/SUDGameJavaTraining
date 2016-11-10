@@ -2,7 +2,6 @@ package com.plateauu.sudgame.monsters;
 
 import com.plateauu.sudgame.Statistics;
 import com.plateauu.sudgame.domain.FightableStrategy;
-import com.plateauu.sudgame.domain.Player;
 
 public abstract class Npc {
 
@@ -98,7 +97,6 @@ public abstract class Npc {
         this.fightableInterface = chosenWeapon;
     }
 
-    //todo add descprition
     public String getStatistics() {
         return "Name: " + this.npcName
                 + "\nRace: " + this.npcRace
@@ -126,8 +124,6 @@ public abstract class Npc {
     public boolean isAlive() {
         return npcStats.getHealth() > 0;
     }
-
-    public abstract String makeConversation(Player player);
 
     public ConversationScript getConversationScript() {
         return conversationScript;

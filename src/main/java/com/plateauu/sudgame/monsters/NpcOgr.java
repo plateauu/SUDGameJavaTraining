@@ -1,7 +1,6 @@
 package com.plateauu.sudgame.monsters;
 
 import com.plateauu.sudgame.domain.FightBySwordStrategy;
-import com.plateauu.sudgame.domain.Player;
 
 public class NpcOgr extends Npc {
 
@@ -17,11 +16,5 @@ public class NpcOgr extends Npc {
         super(name, npcHealth, nbcStrength, npcAgility, Monsters.Ogr);
         this.fightableInterface = new FightBySwordStrategy();
         this.npcDescription = DESCRIPTION;
-    }
-
-    @Override
-    public String makeConversation(Player player) {
-
-        return null;
     }
 }

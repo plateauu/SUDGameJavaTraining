@@ -1,7 +1,6 @@
 package com.plateauu.sudgame.monsters;
 
 import com.plateauu.sudgame.domain.FightByHandStrategy;
-import com.plateauu.sudgame.domain.Player;
 
 public class NpcOrk extends Npc {
 
@@ -19,9 +18,4 @@ public class NpcOrk extends Npc {
         this.npcDescription = DESCRIPTION;
     }
 
-    @Override
-    public String makeConversation(Player player) {
-
-        return null;
-    }
 }

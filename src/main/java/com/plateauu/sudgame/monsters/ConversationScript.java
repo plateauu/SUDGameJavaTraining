@@ -103,6 +103,10 @@ public class ConversationScript {
         return conversationExitInt;
     }
 
+    void setConversationExitInt(int conversationExitInt) {
+        this.conversationExitInt = conversationExitInt;
+    }
+
     public Map<Integer, String> getConversationsSubjects() {
         return conversationsSubjects;
     }
@@ -119,8 +123,6 @@ public class ConversationScript {
         return sb.toString();
     }
 
-
-    //TODO testy
     public String getResponse(Npc monster) {
         String response;
         boolean ifExists = conversationSubjectExists(actualSubject);
@@ -132,7 +134,6 @@ public class ConversationScript {
         } else {
             response = "Bad choice. Try again. If you want to go further just type: stop";
         }
-
 
         return response;
     }
@@ -151,10 +152,6 @@ public class ConversationScript {
 
     void setConversationLimit(int conversationLimit) {
         this.conversationLimit = conversationLimit;
-    }
-
-    void setConversationExitInt(int conversationExitInt) {
-        this.conversationExitInt = conversationExitInt;
     }
 
     Map<String, Map<Integer, String>> getResponseSubject() {
